@@ -1,4 +1,7 @@
 ja:
+  errors:
+    messages:
+      not_saved: "保存できませんでした。"
   devise:
     sessions:
       signed_in: "ログインしました。"
@@ -26,6 +29,7 @@ ja:
       timeout: "セッションがタイムアウトしました。再度ログインしてください。"
       inactive: "アカウントが有効化されていません。"
       already_authenticated: "すでにログインしています。"
+      not_found_in_database: "メールアドレスまたはパスワードが正しくありません。"
   activerecord:
     attributes:
       user:
