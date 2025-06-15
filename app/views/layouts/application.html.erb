@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>KidsJournal</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,7 +10,21 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="<%= 'no-scroll' if controller_name == 'homes' && action_name == 'index' && !user_signed_in? %>">
+    <%= render "shared/header" %>
+
+    <div class="body__container">
+      <div class="main__container">
+        <% flash.each do |message_type, message| %>
+          <div class="flash flash-<%= message_type %>">
+            <%= message %>
+          </div>
+        <% end %>
+    
+        <%= yield %>
+      </div>
+    </div>
+
+    <%= render "shared/footer" %>
   </body>
 </html>

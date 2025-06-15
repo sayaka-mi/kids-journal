@@ -1,0 +1,38 @@
+<div class="registration-main">
+  <div class="form-wrap">
+    <div class="form-header">
+      <h1 class="form-header-text">ログイン</h1>
+    </div>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), local: true) do |f| %>
+      <div class="form-group">
+        <div class='form-text-wrap'>
+          <%= f.label :email, class: "form-text" %>
+          <span class="indispensable">必須</span>
+        </div>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input-default", placeholder: "メールアドレスを入力" %>
+      </div>
+
+      <div class="form-group">
+        <div class='form-text-wrap'>
+          <%= f.label :password, class: "form-text" %>
+          <span class="indispensable">必須</span>
+        </div>
+        <%= f.password_field :password, autocomplete: "current-password", class: "input-default", placeholder: "パスワードを入力" %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="form-group">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me, "ログイン状態を保持する" %>
+        </div>
+      <% end %>
+
+      <div class="register-btn">
+        <%= f.submit "ログイン", class: "submit-btn" %>
+      </div>
+    <% end %>
+
+    <%= render "devise/shared/links" %>
+  </div>
+</div>

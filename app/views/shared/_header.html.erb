@@ -1,0 +1,18 @@
+<header class="header">
+  <div class="header-content">
+    <%= link_to root_path, class: "logo" do %>
+      <%= image_tag "logo.png", alt: "Kids Journal Logo", class: "logo-image" %>
+    <% end %>
+
+    <% if user_signed_in? %>
+      <div class="header-actions">
+        <%= link_to 'ログアウト', destroy_user_session_path, 
+              class: "logout-btn", 
+              data: { turbo_method: :delete } %>
+        <button class="icon-btn">
+          <%= image_tag "find.png", alt: "検索", class: "icon-image" %>
+        </button>
+      </div>
+    <% end %>
+  </div>
+</header>

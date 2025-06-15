@@ -1,0 +1,55 @@
+ja:
+  errors:
+    messages:
+      not_saved: "保存できませんでした。"
+  devise:
+    sessions:
+      signed_in: "ログインしました。"
+      signed_out: "ログアウトしました。"
+      already_signed_out: "すでにログアウトしています。"
+    registrations:
+      signed_up: "アカウント登録が完了しました。"
+      signed_up_but_inactive: "アカウント登録は完了しましたが、有効化されていません。"
+      signed_up_but_locked: "アカウント登録は完了しましたが、ロックされています。"
+      updated: "アカウント情報を更新しました。"
+      destroyed: "アカウントを削除しました。"
+      update_needs_confirmation: "アカウント情報を更新しました。新しいメールアドレスを確認してください。"
+    passwords:
+      send_instructions: "パスワード再設定の手順をメールで送信しました。"
+      updated: "パスワードを変更しました。"
+      updated_not_active: "パスワードを変更しましたが、アカウントは有効ではありません。"
+    confirmations:
+      send_instructions: "アカウント有効化の手順をメールで送信しました。"
+      confirmed: "アカウントが有効化されました。"
+    failure:
+      unauthenticated: "ログインが必要です。"
+      unconfirmed: "メールアドレスの確認が必要です。"
+      locked: "アカウントがロックされています。"
+      invalid: "メールアドレスまたはパスワードが正しくありません。"
+      timeout: "セッションがタイムアウトしました。再度ログインしてください。"
+      inactive: "アカウントが有効化されていません。"
+      already_authenticated: "すでにログインしています。"
+      not_found_in_database: "メールアドレスまたはパスワードが正しくありません。"
+  activerecord:
+    attributes:
+      user:
+        name: "あなたのお名前"
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "確認用パスワード"
+    errors:
+      models:
+        user:
+          attributes:
+            name:
+              blank: "を教えてください！" 
+            email:
+              blank: "を入力してください！" 
+              invalid: "の形式が正しくありません！"
+              taken: "は既に使用されています。別のメールアドレスをお試しください！"
+            password:
+              blank: "を入力してください！"
+              too_short: "は%{count}文字以上で入力してください！"
+              invalid: "は半角英数字をそれぞれ1文字以上含めて入力してください！"
+            password_confirmation:
+              confirmation: "とパスワード（確認用）が一致しません！"
