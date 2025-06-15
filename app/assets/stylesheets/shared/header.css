@@ -1,0 +1,75 @@
+.header {
+  background: #ffffff;
+  padding: 16px 24px;
+  border-bottom: 1px solid #f0ede8;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+}
+
+.header-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 480px;
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+}
+
+.logo {
+  display: inline-block;
+  margin: 0 auto;
+  max-width: 200px;
+}
+
+.logo-image {
+  max-width: 200px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .logo-image {
+    max-width: 200px;
+  }
+}
+
+.header-actions {
+  position: absolute;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon-btn,
+.logout-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background: #f8f6f1;
+  color: #8b7355;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 16px;
+}
+
+.icon-btn:hover,
+.logout-btn:hover {
+  background: #f0ede8;
+  transform: scale(1.05);
+}
+
+.icon-image {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}

@@ -1,0 +1,29 @@
+.links-btn {
+  color: #8b7355;
+  font-size: 14px;
+  text-decoration: none;
+  margin-top: 15px;
+  display: block;
+  text-align: center;
+  transition: all 0.2s ease;
+  padding: 10px 15px;
+  border: 1px solid #d4b896;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.links-btn:hover {
+  color: #5d4e37;
+  background: #f0ede8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.registration-main .form-wrap p {
+  text-align: center;
+  margin-top: 20px;
+  line-height: 1.5;
+  color: #5d4e37;
+  font-size: 14px;
+}
