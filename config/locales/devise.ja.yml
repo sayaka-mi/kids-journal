@@ -37,6 +37,10 @@ ja:
         email: "メールアドレス"
         password: "パスワード"
         password_confirmation: "確認用パスワード"
+      child:
+        genders:
+          male: 男の子
+          female: 女の子
     errors:
       models:
         user:

@@ -1,0 +1,17 @@
+<h1>お子様一覧</h1>
+
+<%= link_to '新しいお子様を追加', new_child_path, class: 'btn btn-primary' %>
+
+<ul>
+  <% @children.each do |child| %>
+    <li>
+      <p>名前: <%= child.name %></p>
+      <p>生年月日: <%= child.birthday %></p>
+      <p>性別: <%= child.gender %></p>
+      <p>アレルギー情報: <%= child.allergy_info.presence || 'なし' %></p>
+      <p>血液型: <%= child.blood_type.presence || '不明' %></p>
+      <%= link_to '編集', edit_child_path(child), class: 'btn btn-secondary' %>
+      <%= link_to '削除', child_path(child), data: { turbo_method: :delete, confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+    </li>
+  <% end %>
+</ul>
