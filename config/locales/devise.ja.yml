@@ -44,6 +44,15 @@ ja:
         allergy_info: "アレルギー情報"
         blood_type: "血液型"
         user: "保護者"
+        genders:
+          male: "男の子"
+          female: "女の子"
+        blood_types:
+          A: "A型"
+          B: "B型"
+          O: "O型"
+          AB: "AB型"
+          unknown: "不明"
     errors:
       models:
         child:
@@ -73,12 +82,4 @@ ja:
               invalid: "は半角英数字をそれぞれ1文字以上含めて入力してください！"
             password_confirmation:
               confirmation: "とパスワード（確認用）が一致しません！"
-      genders:
-        male: "男の子"
-        female: "女の子"
-      blood_types:
-        A: "A型"
-        B: "B型"
-        O: "O型"
-        AB: "AB型"
-        unknown: "不明"
+      

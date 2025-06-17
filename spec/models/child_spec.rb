@@ -68,5 +68,20 @@ RSpec.describe Child, type: :model do
         expect(@child.errors.full_messages).to include ("保護者 を登録してください")
       end
     end
-  end 
+  end
+
+  describe '#age_in_years_and_months' do
+    it '正しく年齢と月齢を返す' do
+      child = FactoryBot.build(:child, birthday: Date.new(2020,11, 9))
+
+      travel_to Date.new(2025, 6, 17) do
+        expect(child.age_in_years_and_months).to eq "4歳7か月"
+      end
+    end
+
+    it 'birthdayがない場合はnilを返す' do
+      child = FactoryBot.build(:child, birthday: nil)
+      expect(child.age_in_years_and_months).to eq nil
+    end 
+  end
 end
