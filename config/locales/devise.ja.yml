@@ -38,23 +38,33 @@ ja:
         password: "パスワード"
         password_confirmation: "確認用パスワード"
       child:
-        genders:
-          male: "男の子"
-          female: "女の子"
-        blood_types:
-          A: "A型"
-          B: "B型"
-          O: "O型"
-          AB: "AB型"
-          unknown: "不明"
+        name: "お子さんの名前"
+        birthday: "生年月日"
+        gender: "性別"
+        allergy_info: "アレルギー情報"
+        blood_type: "血液型"
+        user: "保護者"
     errors:
       models:
+        child:
+          attributes:
+            name:
+              blank: "を教えてください！"
+            birthday:
+              blank: "を教えてください！"
+            gender:
+              blank: "を選んでください！"
+            blood_type:
+              blank: "を選んでください！"
+            user:
+              blank: "を登録してください"
+              required: "を登録してください"
         user:
           attributes:
             name:
-              blank: "を教えてください！" 
+              blank: "を教えてください！"
             email:
-              blank: "を入力してください！" 
+              blank: "を入力してください！"
               invalid: "の形式が正しくありません！"
               taken: "は既に使用されています。別のメールアドレスをお試しください！"
             password:
@@ -63,3 +73,12 @@ ja:
               invalid: "は半角英数字をそれぞれ1文字以上含めて入力してください！"
             password_confirmation:
               confirmation: "とパスワード（確認用）が一致しません！"
+      genders:
+        male: "男の子"
+        female: "女の子"
+      blood_types:
+        A: "A型"
+        B: "B型"
+        O: "O型"
+        AB: "AB型"
+        unknown: "不明"
