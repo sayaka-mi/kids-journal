@@ -15,6 +15,7 @@ class ChildrenController < ApplicationController
     if @child.save
       redirect_to children_path, notice: '登録しました！'
     else
+      Rails.logger.debug "== errors: #{@child.errors.full_messages} =="
       render :new
     end
   end

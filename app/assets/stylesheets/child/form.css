@@ -44,9 +44,9 @@
 }
 
 .child-form-container {
-  height: calc(100vh - 95px - 90px);
-  overflow-y: auto;
+  max-height: none;;
   padding-bottom: 20px;
+  margin-bottom: 90px;
 }
 
 .child-form {

@@ -1,30 +1,22 @@
 <div class="child-form-container">
-  <%= form_with model: child, local: true, class: 'child-form' do |f| %>
-    <% if @child.errors.any? %>
-      <div class="error-messages">
-        <ul>
-          <% @child.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
+  <%= form_with model: @child, local: true, class: 'child-form', data: { turbo: false } do |f| %>
+    <%= render 'shared/error_messages', model: @child %>
 
     <div class="form-group">
       <%= f.label :name, '名前' %>
-      <%= f.text_field :name, required: true, class: 'form-input' %>
+      <%= f.text_field :name, class: 'form-input' %>
     </div>
 
     <div class="form-group">
       <%= f.label :birthday, '誕生日' %>
-      <%= f.date_field :birthday, required: true, class: 'form-input' %>
+      <%= f.date_field :birthday, class: 'form-input' %>
     </div>
 
     <div class="form-group">
       <%= f.label :gender, '性別' %>
       <%= f.select :gender,
         Child.genders.keys.map { |g| [t("activerecord.attributes.child.genders.#{g}"), g] },
-        { include_blank: '選択してください' }, required: true, class: 'form-input' %>
+        { include_blank: '選択してください' }, class: 'form-input' %>
     </div>
 
     <div class="form-group">
@@ -36,11 +28,12 @@
       <%= f.label :blood_type, '血液型' %>
       <%= f.select :blood_type,
       Child.blood_types.keys.map { |b| [t("activerecord.attributes.child.blood_types.#{b}"), b] },
-      { include_blank: '選択してください' }, required: true, class: 'form-input' %>
+      { include_blank: '選択してください' }, class: 'form-input' %>
     </div>
 
     <div class="form-actions">
       <%= f.submit '登録', class: 'btn btn-primary' %>
     </div>
+
   <% end %>
 </div>
