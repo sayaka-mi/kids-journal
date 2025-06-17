@@ -3,11 +3,16 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: 'Arial', sans-serif;
   line-height: 1.6;
   background-color: #f8f6f1;
-  color: #5d4e37;
-  min-height: 100vh;
+  color: #6e593f;
+  min-height: calc(100vh - 95px - 90px);
   overflow-y: auto;
+}
+
+html, body {
+  height: 100%;
 }
