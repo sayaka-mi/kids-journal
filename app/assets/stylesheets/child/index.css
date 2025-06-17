@@ -1,0 +1,92 @@
+h1 {
+  text-align: center;
+}
+
+.btn-primary {
+  background: #8b7355;
+  border: 1px solid #8b7355;
+  color: white;
+  font-weight: bold;
+  border-radius: 20px;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: all 0.2s;
+  display: inline-block;
+  margin: 20px 0;
+}
+
+.btn-primary:hover {
+  background: #8e7454;
+  border-color: #b49268;
+}
+
+.children-container {
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  padding-bottom: 110px;
+}
+
+.children-list {
+  display: block;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+
+}
+
+.child-form {
+  background: #fff;
+  border: 1px solid #f0ede8;
+  border-radius: 12px;
+  padding: 16px;
+  width: 300px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.child-form p {
+  margin: 8px 0;
+  font-size: 0.95rem;
+  color: #5d4e37;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.btn {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border-radius: 20px;
+  text-decoration: none;
+  color: #ffffff;
+  background: #8b7355;
+  border: 1px solid #8b7355;
+  transition: all 0.2s;
+}
+
+.btn:hover {
+  background: #6e593f;
+  border-color: #6e593f;
+}
+
+.btn-secondary {
+  background: #c89b7b;
+}
+
+.btn-secondary:hover {
+  background: #b0836b;
+}
+
+.btn-danger {
+  background: #d37d7b8c;
+}
+
+.btn-danger:hover {
+  background: #e0838081;
+}

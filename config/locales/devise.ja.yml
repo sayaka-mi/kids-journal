@@ -39,8 +39,14 @@ ja:
         password_confirmation: "確認用パスワード"
       child:
         genders:
-          male: 男の子
-          female: 女の子
+          male: "男の子"
+          female: "女の子"
+        blood_types:
+          A: "A型"
+          B: "B型"
+          O: "O型"
+          AB: "AB型"
+          unknown: "不明"
     errors:
       models:
         user:
