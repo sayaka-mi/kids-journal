@@ -1,0 +1,19 @@
+<h2><%= @child.name %>の記録を投稿する</h2>
+
+<%= form_with model: [@child, @record], local: true do |f| %>
+  <div>
+    <%= f.label :content, "文章" %><br>
+    <%= f.text_area :content, rows: 3 %>
+  </div>
+
+  <div>
+    <%= f.label :image, "写真を選択" %><br>
+    <%= f.file_field :image, accept: 'image/jpeg,image/png,image/gif', capture: 'environment' %>
+  </div>
+
+  <div>
+    <%= f.submit "投稿する" %>
+  </div>
+<% end %>
+
+<%= link_to "戻る", child_records_path(@child) %>
