@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root to: 'homes#index'
 
   resources :children do
-    resources :records, only: [:new, :create, :index, :show, :destroy]
+    resources :records, only: [:new, :create, :index, :edit, :update, :destroy]
   end
 
   resources :posts
