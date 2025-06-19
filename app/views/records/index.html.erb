@@ -1,1 +1,17 @@
 <h2><%= @child.name %>の記録一覧</h2>
+
+<% @records.each do |record| %>
+  <div>
+    <%if record.image.attached? %>
+      <%= image_tag record.image.variant(resize_to_limit: [200, 200]) %>
+    <% end %>
+    <% if record.content.present? %>
+      <p><%= record.content %></p>
+    <% end %>
+    <div>
+      <%= link_to "削除", child_record_path(@child, record), data: { turbo_method: :delete }, class: "btn btn-danger" %>
+    </div>
+  </div>
+<% end %>
+
+<%= link_to "新しい記録を投稿", new_child_record_path(@child) %>

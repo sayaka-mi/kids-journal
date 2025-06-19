@@ -20,6 +20,7 @@ class RecordsController < ApplicationController
   end
 
   def show
+    @record = @child.records.find(params[:id])
   end
 
   def edit
@@ -29,6 +30,9 @@ class RecordsController < ApplicationController
   end
 
   def destroy
+    @record = @child.records.find(params[:id])
+    @record.destroy
+    redirect_to child_records_path(@child), notice: "削除しました"
   end
 
   private

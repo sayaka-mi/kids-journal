@@ -1,0 +1,9 @@
+<h2>記録詳細</h2>
+
+<% if @record.image.attached? %>
+  <%= image_tag @record.image.variant(resize_to_limit: [300, 300]) %>
+<% end %>
+
+<p><%= @record.content %></p>
+
+<%= link_to "戻る", child_records_path(@child) %>
