@@ -1,23 +1,24 @@
 class Record < ApplicationRecord
   belongs_to :child
-  has_one_attached :image
+  has_many_attached :images
 
-  validate :image_or_content_presence
-  validate :image_content_type
+  validate :images_or_content_presence
+  validate :valid_image_types
 
   private
 
-  def image_or_content_presence
-    if !image.attached? && content.blank?
-      errors.add(:base, "どちらかを記録してみましょう！")
-    end
+  def images_or_content_presence
+    return if content.present? || images.attached?
+    errors.add(:base, "どちらかを記録してみましょう！")
   end
 
-  def image_content_type
-    return unless image.attached?
+  def valid_image_types
     acceptable_types = ["image/jpeg", "image/png", "image/gif", "video/mp4", "video/quicktime"]
-    unless acceptable_types.include?(image.content_type)
-      errors.add(:image, "は対応している画像または動画ファイルでアップロードしてください")
+    images.each do |image|
+      unless acceptable_types.include?(image.content_type)
+        errors.add(:images, "は対応している画像または動画ファイルでアップロードしてください")
+      end
     end
   end
+  
 end

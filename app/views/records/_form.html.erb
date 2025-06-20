@@ -1,13 +1,28 @@
-<%= form_with model: [@child, @record], local: true do |f| %>
+<%= form_with model: [@child, @record], local: true, html: { multipart: true } do |f| %>
   <div>
     <%= f.label :content, "文章" %><br>
     <%= f.text_area :content, rows: 3 %>
   </div>
 
-  <div>
-    <%= f.label :image, "写真を選択" %><br>
-    <%= f.file_field :image, accept: 'image/jpeg,image/png,image/gif', capture: 'environment' %>
+  <div id="existing-images">
+    <% if @record.images.attached? %>
+      <% @record.images.each_with_index do |image, index| %>
+        <div class="existing-image" data-index="<%= index %>">
+          <%= image_tag image.variant(resize_to_limit: [200, 200])%>
+          <label>
+            <input type="checkbox" name="record[remove_images][]" value="<%= image.blob_id%>">
+            削除する
+          </label>
+        </div>
+      <% end %>
+    <% end %>
   </div>
+
+  <div id="image_inputs_container">
+    <input type="file" name="record[images][]" accept="image/jpeg,image/png,image/gif,video/mp4,video/quicktime">
+  </div>
+  <div id="previews"></div>
+  <button type="button" id="add_image_input_button">画像を追加する</button>
 
   <div>
     <%= f.submit "投稿する" %>

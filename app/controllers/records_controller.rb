@@ -24,10 +24,22 @@ class RecordsController < ApplicationController
   end
 
   def update
-    if @record.update(record_params)
+    if params[:record][:remove_images].present?
+      params[:record][:remove_images].each do |blob_id|
+        image = @record.images.find_by(blob_id: blob_id)
+        image.purge if image
+      end
+    end
+
+    if @record.update(record_params.except(:images))
+      if params[:record][:images].present?
+        params[:record][:images].each do |image|
+          @record.images.attach(image)
+        end
+      end
       redirect_to child_records_path(@child), notice: '更新しました！'
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -42,7 +54,7 @@ class RecordsController < ApplicationController
   end
 
   def record_params
-    params.require(:record).permit(:image, :content)
+    params.require(:record).permit(:content, images: [])
   end
 
   def set_record

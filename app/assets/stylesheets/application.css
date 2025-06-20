@@ -24,6 +24,8 @@
 .main__container {
   padding: 16px;
   min-height: 100vh;
+  padding-top: calc(16px + 95px);
+  padding-bottom: calc(16px + 90px);
 }
 
 .no-scroll {
