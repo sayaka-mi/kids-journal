@@ -17,6 +17,12 @@
         <div class="form-actions">
           <%= link_to '編集', edit_child_path(child), class: 'btn btn-secondary' %>
           <%= link_to '削除', child_path(child), data: { turbo_method: :delete, confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+
+          <% if child == current_child %>
+            <button class="btn btn-selected" disabled>選択中</button>
+          <% else %>
+            <%= button_to '選択する', select_child_path(child_id: child.id), method: :post, class: 'btn btn-primary' %>
+          <% end %>
         </div>
       </div>
     <% end %>
