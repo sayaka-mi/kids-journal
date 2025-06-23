@@ -16,7 +16,7 @@ document.addEventListener('turbo:load', () => {
     const input = document.createElement('input');
     input.type = 'file';
     input.name = 'record[images][]';
-    input.accept = 'image/jpeg,image/png,image/gif,video/mp4,video/quicktime';
+    input.accept = 'image/jpeg,image/png,image/gif';
     input.multiple = true;
     input.classList.add('image-input');
 
@@ -67,12 +67,6 @@ document.addEventListener('turbo:load', () => {
           img.src = url;
           img.classList.add('preview-thumbnail');
           previewWrapper.appendChild(img);
-        } else if (file.type.startsWith('video/')) {
-          const video = document.createElement('video');
-          video.src = url;
-          video.controls = true;
-          video.classList.add('preview-thumbnail');
-          previewWrapper.appendChild(video);
         }
 
         const removeBtn = document.createElement('button');

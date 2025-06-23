@@ -17,10 +17,10 @@ class Record < ApplicationRecord
   def valid_image_types
     return unless images.attached?
 
-    acceptable_types = ["image/jpeg", "image/png", "image/gif", "video/mp4", "video/quicktime"]
+    acceptable_types = ["image/jpeg", "image/png", "image/gif"]
     images.each do |image|
       unless acceptable_types.include?(image.content_type)
-        errors.add(:images, "は対応している画像または動画ファイルでアップロードしてください")
+        errors.add(:images, "は対応している画像でアップロードしてください")
       end
     end
   end

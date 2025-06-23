@@ -66,8 +66,9 @@ label.form-label {
 }
 
 .existing-image-thumb {
-  width: 33vh;
-  height: 33vh;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
   border-radius: 8px;
 }
 

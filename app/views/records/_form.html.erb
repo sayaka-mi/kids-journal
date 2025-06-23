@@ -11,14 +11,7 @@
     <% if @record.images.attached? %>
       <% @record.images.each_with_index do |attachment, index| %>
         <div class="existing-attachment" data-index="<%= index %>">
-          <% if attachment.video? %>
-            <video class="existing-video-thumb" controls>
-              <source src="<%= url_for(attachment) %>" type="<%= attachment.content_type %>">
-              お使いのブラウザは動画再生に対応していません。
-            </video>
-          <% else %>
-            <%= image_tag url_for(attachment), class: 'existing-image-thumb' %>
-          <% end %>
+          <%= image_tag url_for(attachment), class: 'existing-image-thumb' %>
           <label class="attachment-remove-label">
             <input type="checkbox" name="record[remove_attachments][]" value="<%= attachment.blob_id %>" class="attachment-remove-checkbox">
             削除する
@@ -32,7 +25,7 @@
     <button type="button" id="add_image_input_button" class="btn btn-primary">画像を追加する</button>
 
     <div class="image-input-wrapper">
-      <input type="file" name="record[images][]" accept="image/jpeg,image/png,image/gif,video/mp4,video/quicktime" class="image-input" multiple>
+      <input type="file" name="record[images][]" accept="image/jpeg,image/png,image/gif" class="image-input" multiple>
     </div>
   </div>
 

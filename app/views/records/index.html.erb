@@ -5,8 +5,10 @@
     <div class="record-item">
       <div class="record-images">
         <% if record.images.attached? %>
-          <% record.images.each do |image| %>
-            <%= image_tag image.variant(resize_to_limit: [600, 600]) %>
+          <% record.images.each do |attachment| %>
+            <% if attachment.image? %>
+              <%= image_tag attachment.variant(resize_to_limit: [600, 600]) %>
+            <% end %>
           <% end %>
         <% end %>
       </div>
