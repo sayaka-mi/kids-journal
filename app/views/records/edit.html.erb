@@ -1,5 +1,5 @@
-<h2><%= @child.name %>の記録を編集する</h2>
+<h2 class="record-edit-heading"><%= @child.name %>の記録を編集する</h2>
 
 <%= render 'form' %>
 
-<%= link_to "戻る", child_records_path(@child) %>
+<%= link_to "戻る", child_records_path(@child), class: "btn btn-primary" %>

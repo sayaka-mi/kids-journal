@@ -5,44 +5,90 @@ document.addEventListener('turbo:load', () => {
 
   if (!addBtn || !container || !previews) return;
 
+  const imageLimit = 5;
+
+  let fileInputs = [];
+
+  function createFileInput() {
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('image-input-wrapper');
+
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.name = 'record[images][]';
+    input.accept = 'image/jpeg,image/png,image/gif,video/mp4,video/quicktime';
+    input.multiple = true;
+    input.classList.add('image-input');
+
+    wrapper.appendChild(input);
+    container.appendChild(wrapper);
+
+    input.addEventListener('change', updatePreviews);
+
+    fileInputs.push({wrapper, input});
+  }
+
+  if (container.querySelectorAll('input[type="file"]').length === 0) {
+    createFileInput();
+  } else {
+    container.querySelectorAll('input[type="file"]').forEach(input => {
+      fileInputs.push({wrapper: input.parentElement, input});
+      input.addEventListener('change', updatePreviews);
+    });
+  }
+
   addBtn.addEventListener('click', () => {
-    const newInputWrapper = document.createElement('div');
-    newInputWrapper.classList.add('image-input-wrapper');
-
-    const newInput = document.createElement('input');
-    newInput.type = 'file';
-    newInput.name = 'record[images][]';
-    newInput.accept = 'image/jpeg,image/png,image/gif,video/mp4,video/quicktime';
-    newInput.capture = 'environment';
-
-    newInputWrapper.appendChild(newInput);
-    container.appendChild(newInputWrapper);
+    createFileInput();
   });
 
-  container.addEventListener('change', (e) => {
-    if (!e.target.matches('input[type="file"]')) return;
+  function updatePreviews() {
+    previews.innerHTML = '';
 
-    const files = e.target.files;
-    if (files.length === 0)return;
+    let totalFilesCount = 0;
 
-    for (const file of files) {
-      const url = URL.createObjectURL(file);
+    fileInputs.forEach(({wrapper, input}, inputIndex) => {
+      const files = input.files;
+      if (!files) return;
 
-      if (file.type.startsWith('image/')) {
-        const img = document.createElement('img');
-        img.src = url;
-        img.style.maxWidth = '200px';
-        img.style.margin = '5px';
-        previews.appendChild(img);
-      }
-      else if (file.type.startsWith('video/')) {
-        const video = document.createElement('video');
-        video.src = url;
-        video.controls = true;
-        video.style.maxWidth = '200px';
-        video.style.margin = '5px';
-        previews.appendChild(video);
-      }
-    }
-  });
+      Array.from(files).forEach((file, fileIndex) => {
+        totalFilesCount++;
+
+        if (totalFilesCount > imageLimit) return;
+
+        const url = URL.createObjectURL(file);
+
+        const previewWrapper = document.createElement('div');
+        previewWrapper.classList.add('preview-thumbnail-wrapper');
+        previewWrapper.setAttribute('data-input-index', inputIndex);
+        previewWrapper.setAttribute('data-file-index', fileIndex);
+
+        if (file.type.startsWith('image/')) {
+          const img = document.createElement('img');
+          img.src = url;
+          img.classList.add('preview-thumbnail');
+          previewWrapper.appendChild(img);
+        } else if (file.type.startsWith('video/')) {
+          const video = document.createElement('video');
+          video.src = url;
+          video.controls = true;
+          video.classList.add('preview-thumbnail');
+          previewWrapper.appendChild(video);
+        }
+
+        const removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.textContent = '✖';
+        removeBtn.classList.add('small-close-button');
+
+        removeBtn.addEventListener('click', () => {
+          input.value = '';
+          updatePreviews();
+        });
+
+        previewWrapper.appendChild(removeBtn);
+        previews.appendChild(previewWrapper);
+      });
+    });
+
+  }
 });

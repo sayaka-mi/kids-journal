@@ -1,0 +1,8 @@
+.record-edit-heading,
+.record-new-heading {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #896d4b;
+  margin-bottom: 20px;
+  font-weight: bold;
+}

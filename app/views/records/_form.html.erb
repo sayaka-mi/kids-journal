@@ -1,16 +1,16 @@
-<%= form_with model: [@child, @record], local: true, html: { multipart: true } do |f| %>
-  <div>
-    <%= f.label :content, "文章" %><br>
-    <%= f.text_area :content, rows: 3 %>
+<%= form_with model: [@child, @record], local: true, html: { multipart: true, class: 'record-form' } do |f| %>
+  <div class="form-group">
+    <%= f.label :content, "新しいきろく", class: 'form-label' %><br>
+    <%= f.text_area :content, rows: 3, class: 'form-textarea' %>
   </div>
 
-  <div id="existing-images">
+  <div id="existing-images" class="existing-images-container">
     <% if @record.images.attached? %>
       <% @record.images.each_with_index do |image, index| %>
         <div class="existing-image" data-index="<%= index %>">
-          <%= image_tag image.variant(resize_to_limit: [200, 200])%>
-          <label>
-            <input type="checkbox" name="record[remove_images][]" value="<%= image.blob_id%>">
+          <%= image_tag image.variant(resize_to_limit: [200, 200]), class: 'existing-image-thumb' %>
+          <label class="image-remove-label">
+            <input type="checkbox" name="record[remove_images][]" value="<%= image.blob_id%>" class="image-remove-checkbox">
             削除する
           </label>
         </div>
@@ -18,13 +18,19 @@
     <% end %>
   </div>
 
-  <div id="image_inputs_container">
-    <input type="file" name="record[images][]" accept="image/jpeg,image/png,image/gif,video/mp4,video/quicktime">
-  </div>
-  <div id="previews"></div>
-  <button type="button" id="add_image_input_button">画像を追加する</button>
+  <div id="image_inputs_container" class="image-input-container">
+    <button type="button" id="add_image_input_button" class="btn btn-primary">画像を追加する</button>
 
-  <div>
-    <%= f.submit "投稿する" %>
+    <div class="image-input-wrapper">
+      <input type="file" name="record[images][]" accept="image/jpeg,image/png,image/gif,video/mp4,video/quicktime" class="image-input" multiple>
+    </div>
   </div>
+
+  <div id="previews" class="image-previews"></div>
+  
+  <div class="submit-container">
+    <%= link_to "戻る", child_records_path(@child), class: "btn btn-secondary" %>
+    <%= f.submit "投稿する", class: 'btn btn-primary'%>
+  </div>
+
 <% end %>
