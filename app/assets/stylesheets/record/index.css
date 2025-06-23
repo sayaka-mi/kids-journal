@@ -1,10 +1,9 @@
 .record-header {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: bold;
   color: #6e593f;
   text-align: center;
   margin-bottom: 20px;
-  border-bottom: 2px solid #e0e0e0;
   padding-bottom: 10px;
 }
 
@@ -16,6 +15,7 @@
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
 }
 
 .record-item {
@@ -28,6 +28,7 @@
 
 .record-images img {
   width: 100%;
+  max-width: 280px;
   height: auto;
   border-radius: 8px;
   margin-bottom: 8px;

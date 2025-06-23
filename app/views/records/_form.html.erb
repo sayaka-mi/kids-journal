@@ -1,4 +1,7 @@
 <%= form_with model: [@child, @record], local: true, html: { multipart: true, class: 'record-form' } do |f| %>
+  
+  <%= render 'shared/error_messages', model: @record %>
+
   <div class="form-group">
     <%= f.label :content, "新しいきろく", class: 'form-label' %><br>
     <%= f.text_area :content, rows: 3, class: 'form-textarea' %>
@@ -6,11 +9,18 @@
 
   <div id="existing-images" class="existing-images-container">
     <% if @record.images.attached? %>
-      <% @record.images.each_with_index do |image, index| %>
-        <div class="existing-image" data-index="<%= index %>">
-          <%= image_tag image.variant(resize_to_limit: [200, 200]), class: 'existing-image-thumb' %>
-          <label class="image-remove-label">
-            <input type="checkbox" name="record[remove_images][]" value="<%= image.blob_id%>" class="image-remove-checkbox">
+      <% @record.images.each_with_index do |attachment, index| %>
+        <div class="existing-attachment" data-index="<%= index %>">
+          <% if attachment.video? %>
+            <video class="existing-video-thumb" controls>
+              <source src="<%= url_for(attachment) %>" type="<%= attachment.content_type %>">
+              お使いのブラウザは動画再生に対応していません。
+            </video>
+          <% else %>
+            <%= image_tag url_for(attachment), class: 'existing-image-thumb' %>
+          <% end %>
+          <label class="attachment-remove-label">
+            <input type="checkbox" name="record[remove_attachments][]" value="<%= attachment.blob_id %>" class="attachment-remove-checkbox">
             削除する
           </label>
         </div>

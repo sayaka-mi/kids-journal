@@ -17,9 +17,22 @@
 
  .body__container {
   width: 100%;
-  max-width: 800px;
+  max-width: 600px;
   margin: 0 auto;
   padding: 0 16px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .body__container {
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 480px) {
+  .body__container {
+    max-width: 400px;
+  }
 }
 
 .main__container {

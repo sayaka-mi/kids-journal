@@ -2,6 +2,8 @@ class Record < ApplicationRecord
   belongs_to :child
   has_many_attached :images
 
+  validates :content, length: { maximum: 500 }, allow_blank: true
+
   validate :images_or_content_presence
   validate :valid_image_types
 
@@ -13,6 +15,8 @@ class Record < ApplicationRecord
   end
 
   def valid_image_types
+    return unless images.attached?
+
     acceptable_types = ["image/jpeg", "image/png", "image/gif", "video/mp4", "video/quicktime"]
     images.each do |image|
       unless acceptable_types.include?(image.content_type)
