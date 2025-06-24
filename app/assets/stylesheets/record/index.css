@@ -1,0 +1,50 @@
+.record-header {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #6e593f;
+  text-align: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+.records-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+}
+
+.record-item {
+  padding: 16px;
+  background-color: #fefefe;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.record-images img {
+  width: 90%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.record-content p {
+  font-size: 1rem;
+  color: #6e593f;
+  margin-bottom: 12px;
+}
+
+.record-date {
+  font-size: 0.9rem;
+  color: #8b7355;
+}
+
+.record-actions {
+  display: flex;
+  gap: 8px;
+}

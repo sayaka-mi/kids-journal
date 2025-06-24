@@ -1,0 +1,39 @@
+<%= form_with model: [@child, @record], local: true, html: { multipart: true, class: 'record-form' } do |f| %>
+  
+  <%= render 'shared/error_messages', model: @record %>
+
+  <div class="form-group">
+    <%= f.label :content, "新しいきろく", class: 'form-label' %><br>
+    <%= f.text_area :content, rows: 3, class: 'form-textarea' %>
+  </div>
+
+  <div id="existing-images" class="existing-images-container">
+    <% if @record.images.attached? %>
+      <% @record.images.each_with_index do |attachment, index| %>
+        <div class="existing-attachment" data-index="<%= index %>">
+          <%= image_tag url_for(attachment), class: 'existing-image-thumb' %>
+          <label class="attachment-remove-label">
+            <input type="checkbox" name="record[remove_attachments][]" value="<%= attachment.blob_id %>" class="attachment-remove-checkbox">
+            削除する
+          </label>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div id="image_inputs_container" class="image-input-container">
+    <button type="button" id="add_image_input_button" class="btn btn-primary">画像を追加する</button>
+
+    <div class="image-input-wrapper">
+      <input type="file" name="record[images][]" accept="image/jpeg,image/png,image/gif" class="image-input" multiple>
+    </div>
+  </div>
+
+  <div id="previews" class="image-previews"></div>
+  
+  <div class="submit-container">
+    <%= link_to "戻る", child_records_path(@child), class: "btn btn-secondary" %>
+    <%= f.submit "投稿する", class: 'btn btn-primary'%>
+  </div>
+
+<% end %>

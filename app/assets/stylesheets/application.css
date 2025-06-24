@@ -16,14 +16,30 @@
  */
 
  .body__container {
-  max-width: 800px;
+  width: 100%;
+  max-width: 600px;
   margin: 0 auto;
   padding: 0 16px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .body__container {
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 480px) {
+  .body__container {
+    max-width: 400px;
+  }
 }
 
 .main__container {
   padding: 16px;
   min-height: 100vh;
+  padding-top: calc(16px + 70px);
+  padding-bottom: calc(16px + 80px);
 }
 
 .no-scroll {

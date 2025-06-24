@@ -31,6 +31,10 @@ ja:
       already_authenticated: "すでにログインしています。"
       not_found_in_database: "メールアドレスまたはパスワードが正しくありません。"
   activerecord:
+    models:
+      user: "ユーザー"
+      child: "お子さん"
+      record: "記録"
     attributes:
       user:
         name: "あなたのお名前"
@@ -53,21 +57,12 @@ ja:
           O: "O型"
           AB: "AB型"
           unknown: "不明"
+      record:
+        child: "お子さん"
+        content: "内容"
+
     errors:
       models:
-        child:
-          attributes:
-            name:
-              blank: "を教えてください！"
-            birthday:
-              blank: "を教えてください！"
-            gender:
-              blank: "を選んでください！"
-            blood_type:
-              blank: "を選んでください！"
-            user:
-              blank: "を登録してください"
-              required: "を登録してください"
         user:
           attributes:
             name:
@@ -82,4 +77,24 @@ ja:
               invalid: "は半角英数字をそれぞれ1文字以上含めて入力してください！"
             password_confirmation:
               confirmation: "とパスワード（確認用）が一致しません！"
-      
+        child:
+          attributes:
+            name:
+              blank: "を教えてください！"
+            birthday:
+              blank: "を教えてください！"
+            gender:
+              blank: "を選んでください！"
+            blood_type:
+              blank: "を選んでください！"
+            user:
+              blank: "を登録してください"
+              required: "を登録してください"
+        record:
+          attributes:
+            child:
+              blank: "を登録してください"
+              required: "を登録してください"
+            content:
+              blank: "を入力してください"
+              too_long: "は%{count}文字以内で入力してください"

@@ -56,11 +56,6 @@
   transition: background-color 0.2s transform 0.2s;
 }
 
-.tab-item:hover {
-  background: #f0ede8;
-  transform: scale(1.05);
-}
-
 .tab-icon:active {
   transform: scale(0.95);
 }

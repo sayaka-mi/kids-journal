@@ -1,0 +1,30 @@
+<h2 class="record-header"><%= @child.name %>のきろく</h2>
+
+<div class="records-container">
+  <% @records.each do |record| %>
+    <div class="record-item">
+      <div class="record-images">
+        <% if record.images.attached? %>
+          <% record.images.each do |attachment| %>
+            <% if attachment.image? %>
+              <%= image_tag attachment.variant(resize_to_limit: [600, 600]) %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="record-content">
+        <% if record.content.present? %>
+          <p><%= record.content %></p>
+        <% end %>
+      </div>
+
+      <p class="record-date">投稿日: <%= record.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+
+      <div class="record-actions">
+        <%= link_to "編集", edit_child_record_path(@child, record), class: "btn btn-primary" %>
+        <%= link_to "削除", child_record_path(@child, record), data: { turbo_method: :delete }, class: "btn btn-danger" %>
+      </div>
+    </div>
+  <% end %>
+</div>

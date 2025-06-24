@@ -39,6 +39,12 @@ class ChildrenController < ApplicationController
     end
   end
 
+  def select_child
+    child = current_user.children.find(params[:child_id])
+    session[:child_id] = child.id
+    redirect_to root_path, notice: "#{child.name} を選択しました"
+  end
+
   private
 
   def set_child
