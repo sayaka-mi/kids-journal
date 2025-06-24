@@ -19,6 +19,14 @@
         <% end %>
       </div>
 
+      <% if record.tags.any? %>
+        <div class="record-tags">
+          <% record.tags.each do |tag| %>
+            <span class="tag-item">#<%= tag.name %></span>
+          <% end %>
+        </div>
+      <% end %>
+
       <p class="record-date">投稿日: <%= record.created_at.strftime("%Y/%m/%d %H:%M") %></p>
 
       <div class="record-actions">

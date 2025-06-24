@@ -9,6 +9,14 @@ class RecordsController < ApplicationController
 
   def create
     @record = @child.records.new(record_params)
+
+    if params[:new_tags].present?
+      new_tag_ids = params[:new_tags].map do |tag_name|
+        Tag.find_or_create_by(name: tag_name.strip).id
+      end
+      @record.tag_ids += new_tag_ids
+    end
+
     if @record.save
       redirect_to child_records_path(@child), notice: '保存しました！'
     else
@@ -17,10 +25,11 @@ class RecordsController < ApplicationController
   end
 
   def index
-    @records = @child.records.order(created_at: :desc)
+    @records = @child.records.includes(:tags, images_attachments: :blob).order(created_at: :desc)
   end
 
   def edit
+    @record = @child.records.includes(:tags).find(params[:id])
   end
 
   def update
@@ -31,7 +40,17 @@ class RecordsController < ApplicationController
       end
     end
 
-    if @record.update(record_params.except(:attachments))
+    if params[:new_tags].present?
+      new_tag_ids = params[:new_tags].map do |tag_name|
+        Tag.find_or_create_by(name: tag_name.strip).id
+      end
+      existing_tag_ids = (record_params[:tag_ids] || []).reject(&:blank?).map(&:to_i)
+      @record.tag_ids = existing_tag_ids + new_tag_ids
+    else
+      @record.tag_ids = (record_params[:tag_ids] || []).reject(&:blank?).map(&:to_i)
+    end
+
+    if @record.update(record_params.except(:attachments, :tag_ids))
       if params[:record][:attachments].present?
         params[:record][:attachments].each do |attachment|
           @record.images.attach(attachment)
@@ -54,7 +73,7 @@ class RecordsController < ApplicationController
   end
 
   def record_params
-    params.require(:record).permit(:content, images: [])
+    params.require(:record).permit(:content, images: [], tag_ids: [])
   end
 
   def set_record
