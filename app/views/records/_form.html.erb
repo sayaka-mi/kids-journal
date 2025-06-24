@@ -12,9 +12,9 @@
     <input type="text" id="tag-search" autocomplete="off" placeholder="タグ名を入力してね">
     <div id="tag-suggestions" class="suggestions-list"></div>
 
-    <div id="selected-tags" class="selected-tags">
+    <div id="selected-tags" class="record-tags">
       <% @record.tags.each do |tag| %>
-        <span class="selected-tag">
+        <span class="tag-item">
           #<%= tag.name %>
           <button type="button" class="tag-remove-button">×</button>
         </span>

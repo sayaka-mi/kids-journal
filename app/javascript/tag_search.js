@@ -70,7 +70,6 @@ document.addEventListener('turbo:load', () => {
   function addTag(id, name) {
 
     if (id !== null && selectedTagIds.has(id)) return;
-
     if (id === null && selectedNewTagNames.has(name)) return;
 
     if (id !== null) {
@@ -80,13 +79,14 @@ document.addEventListener('turbo:load', () => {
     }
 
     const tagElem = document.createElement('span');
-    tagElem.classList.add('selected-tag');
-    tagElem.textContent = '#' + name;
+    tagElem.classList.add('tag-item');
+    tagElem.appendChild(document.createTextNode('#' + name));
 
     const removeBtn = document.createElement('button');
     removeBtn.type = 'button';
     removeBtn.textContent = '×';
     removeBtn.classList.add('tag-remove-button');
+
     removeBtn.addEventListener('click', () => {
       selectedTags.removeChild(tagElem);
       if (id !== null) {
@@ -114,4 +114,25 @@ document.addEventListener('turbo:load', () => {
     }
     document.querySelector('.record-form').appendChild(hiddenInput);
   }
+
+  function setupInitialRemoveButtons() {
+    selectedTags.querySelectorAll('.tag-remove-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const tagElem = button.parentElement;
+
+        const hiddenInput = tagElem.nextElementSibling; // 既存タグは隠しinputがタグの直後にあるはず
+        if (hiddenInput && (hiddenInput.name === 'record[tag_ids][]' || hiddenInput.name === 'new_tags[]')) {
+          hiddenInput.remove();
+        }
+
+        const tagText = tagElem.textContent.trim();
+        const tagName = tagText.slice(1, -1);
+
+        tagElem.remove();
+      });
+    });
+  }
+
+  setupInitialRemoveButtons();
+
 });

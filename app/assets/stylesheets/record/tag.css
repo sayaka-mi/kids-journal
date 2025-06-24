@@ -58,3 +58,14 @@ label[for="tag-search"]  {
   border-color: #a17a4f;
   background-color: #fff;
 }
+
+.suggestion-item {
+  padding: 6px 12px;
+  cursor: pointer;
+  background-color: #f9f6f2;
+  border-bottom: 1px solid #d6c6b8;
+}
+
+.suggestion-item:hover {
+  background-color: #e2d7c5;
+}
