@@ -2,6 +2,7 @@ ja:
   errors:
     messages:
       not_saved: "保存できませんでした。"
+      taken: "は既に存在します"
   devise:
     sessions:
       signed_in: "ログインしました。"
@@ -35,6 +36,7 @@ ja:
       user: "ユーザー"
       child: "お子さん"
       record: "記録"
+      tag: "タグ"
     attributes:
       user:
         name: "あなたのお名前"
@@ -60,7 +62,8 @@ ja:
       record:
         child: "お子さん"
         content: "内容"
-
+      tag:
+        name: "タグ名"
     errors:
       models:
         user:
@@ -98,3 +101,8 @@ ja:
             content:
               blank: "を入力してください"
               too_long: "は%{count}文字以内で入力してください"
+        tag:
+          attributes:
+            name:
+              blank: "を入力してください"
+          blank: "を入力してください"

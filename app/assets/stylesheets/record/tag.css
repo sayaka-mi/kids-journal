@@ -1,0 +1,71 @@
+.record-tags {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.record-tags .tag-item {
+  background-color: #f9f6f0;
+  color: #7a6a51;
+  border-radius: 10px;
+  padding: 3px 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  user-select: none;
+  position: relative;
+}
+
+.record-tags .tag-item::before {
+  margin-right: 3px;
+  color: #7a6a51;
+  font-weight: 600;
+}
+
+.tag-remove-button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #666;
+  cursor: pointer;
+  padding: 0 4px;
+  margin-right: 5px;
+}
+
+.tag-remove-button:hover {
+  color: #9f2f06a9;
+}
+
+label[for="tag-search"]  {
+  color: #6e593f;
+}
+
+#tag-search {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 5px;
+  font-size: 0.95rem;
+  color: #5a4732;
+  background-color: #fffaf4;
+  border: 1px solid #c4b49b;
+  border-radius: 10px;
+  font-family: inherit;
+  transition: border-color 0.3s ease;
+}
+
+#tag-search:focus {
+  outline: none;
+  border-color: #a17a4f;
+  background-color: #fff;
+}
+
+.suggestion-item {
+  padding: 6px 12px;
+  cursor: pointer;
+  background-color: #f9f6f2;
+  border-bottom: 1px solid #d6c6b8;
+}
+
+.suggestion-item:hover {
+  background-color: #e2d7c5;
+}

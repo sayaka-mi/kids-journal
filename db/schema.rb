@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_06_17_075126) do
+ActiveRecord::Schema[7.1].define(version: 2025_06_24_024657) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -51,12 +51,28 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_17_075126) do
     t.index ["user_id"], name: "index_children_on_user_id"
   end
 
+  create_table "record_tags", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "record_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["record_id"], name: "index_record_tags_on_record_id"
+    t.index ["tag_id"], name: "index_record_tags_on_tag_id"
+  end
+
   create_table "records", charset: "utf8mb3", force: :cascade do |t|
     t.text "content"
     t.bigint "child_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["child_id"], name: "index_records_on_child_id"
+  end
+
+  create_table "tags", charset: "utf8mb3", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
   create_table "users", charset: "utf8mb3", force: :cascade do |t|
@@ -75,5 +91,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_17_075126) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "children", "users"
+  add_foreign_key "record_tags", "records"
+  add_foreign_key "record_tags", "tags"
   add_foreign_key "records", "children"
 end

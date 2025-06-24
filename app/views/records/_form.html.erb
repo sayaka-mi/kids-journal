@@ -7,6 +7,22 @@
     <%= f.text_area :content, rows: 3, class: 'form-textarea' %>
   </div>
 
+  <div class="form-group tad-input-wrapper">
+    <label for="tag-search">タグを追加</label>
+    <input type="text" id="tag-search" autocomplete="off" placeholder="タグ名を入力してね">
+    <div id="tag-suggestions" class="suggestions-list"></div>
+
+    <div id="selected-tags" class="record-tags">
+      <% @record.tags.each do |tag| %>
+        <span class="tag-item">
+          #<%= tag.name %>
+          <button type="button" class="tag-remove-button">×</button>
+        </span>
+        <input type="hidden" name="record[tag_ids][]" value="<%= tag.id %>">
+      <% end %>
+    </div>
+  </div>
+
   <div id="existing-images" class="existing-images-container">
     <% if @record.images.attached? %>
       <% @record.images.each_with_index do |attachment, index| %>

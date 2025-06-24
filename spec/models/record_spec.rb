@@ -50,7 +50,7 @@ RSpec.describe Record, type: :model do
         content_type: 'text/plain'
       )
       @record.valid?
-      expect(@record.errors.full_messages).to include ("Images は対応している画像または動画ファイルでアップロードしてください")
+      expect(@record.errors.full_messages).to include ("Images は対応している画像でアップロードしてください")
     end
 
     it 'child_idがないと保存できない' do

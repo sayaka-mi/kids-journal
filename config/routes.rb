@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   end
 
   resources :posts
-
   post 'select_child', to: 'children#select_child', as: :select_child
+
+  resources :tags, only: [:index]
 end
