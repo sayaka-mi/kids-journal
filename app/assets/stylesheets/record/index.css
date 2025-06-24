@@ -27,8 +27,7 @@
 }
 
 .record-images img {
-  width: 100%;
-  max-width: 280px;
+  width: 90%;
   height: auto;
   border-radius: 8px;
   margin-bottom: 8px;

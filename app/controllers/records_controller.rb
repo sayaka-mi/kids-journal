@@ -12,7 +12,7 @@ class RecordsController < ApplicationController
     if @record.save
       redirect_to child_records_path(@child), notice: '保存しました！'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
