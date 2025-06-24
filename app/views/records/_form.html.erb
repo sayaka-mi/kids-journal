@@ -28,10 +28,7 @@
       <% @record.images.each_with_index do |attachment, index| %>
         <div class="existing-attachment" data-index="<%= index %>">
           <%= image_tag url_for(attachment), class: 'existing-image-thumb' %>
-          <label class="attachment-remove-label">
-            <input type="checkbox" name="record[remove_attachments][]" value="<%= attachment.blob_id %>" class="attachment-remove-checkbox">
-            削除する
-          </label>
+          <button type="button" class="small-close-button" data-blob-id="<%= attachment.blob_id %>">✖</button>
         </div>
       <% end %>
     <% end %>
@@ -39,10 +36,6 @@
 
   <div id="image_inputs_container" class="image-input-container">
     <button type="button" id="add_image_input_button" class="btn btn-primary">画像を追加する</button>
-
-    <div class="image-input-wrapper">
-      <input type="file" name="record[images][]" accept="image/jpeg,image/png,image/gif" class="image-input" multiple>
-    </div>
   </div>
 
   <div id="previews" class="image-previews"></div>

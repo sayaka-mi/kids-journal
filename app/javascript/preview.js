@@ -11,14 +11,14 @@ document.addEventListener('turbo:load', () => {
 
   function createFileInput() {
     const wrapper = document.createElement('div');
-    wrapper.classList.add('image-input-wrapper');
+    wrapper.classList.add('js-image-input-wrapper');
 
     const input = document.createElement('input');
     input.type = 'file';
     input.name = 'record[images][]';
     input.accept = 'image/jpeg,image/png,image/gif';
     input.multiple = true;
-    input.classList.add('image-input');
+    input.classList.add('js-image-input');
 
     wrapper.appendChild(input);
     container.appendChild(wrapper);
@@ -84,5 +84,24 @@ document.addEventListener('turbo:load', () => {
       });
     });
 
+  }
+
+  const existingImagesContainer = document.getElementById('existing-images');
+  if (existingImagesContainer) {
+    existingImagesContainer.addEventListener('click', (event) => {
+      if (event.target.classList.contains('small-close-button')) {
+        const blobId = event.target.dataset.blobId;
+        const attachmentElement = event.target.closest('.existing-attachment');
+
+        if (blobId && attachmentElement) {
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = 'record[remove_attachments][]';
+          input.value = blobId;
+          existingImagesContainer.appendChild(input);
+          attachmentElement.remove();
+        }
+      }
+    });
   }
 });
