@@ -10,4 +10,10 @@ Rails.application.routes.draw do
   post 'select_child', to: 'children#select_child', as: :select_child
 
   resources :tags, only: [:index]
+
+  resources :records, only: [:index] do
+    collection do
+      get :search
+    end
+  end
 end

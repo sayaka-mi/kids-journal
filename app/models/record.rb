@@ -9,6 +9,20 @@ class Record < ApplicationRecord
   validate :images_or_content_presence
   validate :valid_image_types
 
+  def self.search(child_ids:, tag_names:, content:)
+    return none if tag_names.to_s.strip.blank? && content.to_s.strip.blank?
+    
+    records = where(child_id: child_ids)
+    if tag_names.present?
+      tag_list = tag_names.split(/[\s,　]+/).map(&:strip)
+      records = records.joins(:tags).where(tags: { name: tag_list }).distinct
+    end
+    if content.present?
+      records = records.where("content LIKE ?", "%#{sanitize_sql_like(content)}%")
+    end
+    records.includes(:tags, images_attachments: :blob).order(created_at: :desc)
+  end
+
   private
 
   def images_or_content_presence
