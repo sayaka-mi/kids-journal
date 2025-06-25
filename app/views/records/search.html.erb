@@ -24,12 +24,11 @@
 
   <h2 class="search-results-header">検索結果</h2>
 
-  <% if @records.blank? %>
-    <p class="no-results-message">検索条件を入力してね</p>
-  <% elsif @records.empty? %>
+  <% if (params[:tag_names].present? || params[:content].present?) && @records.blank? %>
     <p class="no-results-message">該当する記録はありません。</p>
+  <% elsif params[:tag_names].blank? && params[:content].blank? %>
+    <p class="no-results-message">検索条件を入力してね！</p>
   <% else %>
-    <div class="records-list">
       <% @records.each do |record| %>
         <div class="record-item">
           <p class="record-content"><%= record.content %></p>
