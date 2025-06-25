@@ -51,4 +51,40 @@ RSpec.describe "Records", type: :request do
       expect(response).to redirect_to(child_records_path(child))
     end
   end
+
+  describe "GET /search" do
+    let!(:tag1) { FactoryBot.create(:tag, name: "あそぶ") }
+    let!(:tag2) { FactoryBot.create(:tag, name: "ねんね") }
+    let!(:record1) { FactoryBot.create(:record, child: child, content: "楽しいお出かけ", tags: [tag1]) }
+    let!(:record2) { FactoryBot.create(:record, child: child, content: "赤ちゃんのねんね", tags: [tag2]) }
+    let!(:record3) { FactoryBot.create(:record, child: child, content: "ごはん", tags: []) }
+
+    it "タグ名と内容で検索できる" do
+      get search_records_path, params: { tag_names: "あそぶ", content: "楽しい" }
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include("楽しいお出かけ")
+      expect(response.body).not_to include("赤ちゃんのねんね")
+      expect(response.body).not_to include("ごはん")
+    end
+
+    it "タグ名のみで検索できる" do
+      get search_records_path, params: { tag_names: "ねんね", content: "" }
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include("赤ちゃんのねんね")
+      expect(response.body).not_to include("楽しいお出かけ")
+    end
+
+    it "内容のみで検索できる" do
+      get search_records_path, params: { tag_names: "", content: "ごはん" }
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include("ごはん")
+      expect(response.body).not_to include("赤ちゃんのねんね")
+    end
+
+    it "タグ名も内容も空なら結果は空" do
+      get search_records_path, params: { tag_names: "", content: "" }
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include("検索条件を入力してね！")
+    end
+  end
 end
