@@ -1,0 +1,45 @@
+<div class="search-container">
+  <h1 class="search-header">検索</h1>
+
+  <%= form_with url: search_records_path, method: :get, local: true, class: "search-form" do |f| %>
+    <div class="form-group">
+      <%= f.label :tag_names, "タグ名（,で分けてね）", class: "form-label" %>
+      <%= f.text_field :tag_names, value: params[:tag_names], class: "form-input" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :content, "記録内容（キーワード）", class: "form-label" %>
+      <%= f.text_field :content, value: params[:content], class: "form-input" %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit "検索", class: "form-submit-btn" %>
+    </div>
+  <% end %>
+
+  <hr class="divider">
+
+  <h2 class="search-results-header">検索結果</h2>
+
+  <% if @records.blank? %>
+    <p class="no-results-message">検索条件を入力してね</p>
+  <% else %>
+    <div class="records-list">
+      <% @records.each do |record| %>
+        <div class="record-item">
+          <p class="record-content"><%= record.content %></p>
+          <p class="record-tags">タグ: <%= record.tags.map { |t| "##{t.name}" }.join(" ") %></p>
+          <p class="record-date">投稿日: <%= record.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+        
+          <% if record.images.attached? %>
+            <div class="record-images">
+              <% record.images.each do |image| %>
+                <%= image_tag image.variant(resize_to_limit: [600, 600]), class: "record-image" %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

@@ -5,7 +5,8 @@
   gap: 6px;
 }
 
-.record-tags .tag-item {
+.record-tags .tag-item,
+#selected-tags .tag-item {
   background-color: #f9f6f0;
   color: #7a6a51;
   border-radius: 10px;
@@ -16,7 +17,8 @@
   position: relative;
 }
 
-.record-tags .tag-item::before {
+.record-tags .tag-item::before,
+#selected-tags .tag-item::before {
   margin-right: 3px;
   color: #7a6a51;
   font-weight: 600;

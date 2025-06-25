@@ -1,6 +1,6 @@
 class RecordsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_child
+  before_action :set_child, except: [:search]
   before_action :set_record, only: [:edit, :update, :destroy]
 
   def new
@@ -65,6 +65,29 @@ class RecordsController < ApplicationController
   def destroy
     @record.destroy
     redirect_to child_records_path(@child), notice: "削除しました"
+  end
+
+  def search
+    tag_names = params[:tag_names]
+    content = params[:content]
+
+    if tag_names.blank? && content.blank?
+      @records = Record.none
+    else
+      child_ids = current_user.children.pluck(:id)
+      @records = Record.where(child_id: child_ids)
+
+      if tag_names.present?
+        tag_list = tag_names.split(',').map(&:strip)
+        @records = @records.joins(:tags).where(tags: {name: tag_list}).distinct
+      end
+
+      if content.present?
+        @records = @records.where("content LIKE ?", "%#{content}%")
+      end
+
+      @records = @records.includes(:tags, images_attachments: :blob).order(created_at: :desc)
+    end
   end
 
   private
