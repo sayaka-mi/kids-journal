@@ -60,6 +60,7 @@ ja:
           AB: "AB型"
           unknown: "不明"
       record:
+        images: "画像"
         child: "お子さん"
         content: "内容"
       tag:
@@ -106,3 +107,7 @@ ja:
             name:
               blank: "を入力してください"
           blank: "を入力してください"
+  search:
+    no_conditions: "検索条件を入力してください"
+    no_results: "該当する記録はありません。"
+    invalid_query: "検索条件が正しくありません。"

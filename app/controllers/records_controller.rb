@@ -70,23 +70,12 @@ class RecordsController < ApplicationController
   def search
     tag_names = params[:tag_names]
     content = params[:content]
+    child_ids = current_user.children.pluck(:id)
 
     if tag_names.blank? && content.blank?
       @records = Record.none
     else
-      child_ids = current_user.children.pluck(:id)
-      @records = Record.where(child_id: child_ids)
-
-      if tag_names.present?
-        tag_list = tag_names.split(',').map(&:strip)
-        @records = @records.joins(:tags).where(tags: {name: tag_list}).distinct
-      end
-
-      if content.present?
-        @records = @records.where("content LIKE ?", "%#{content}%")
-      end
-
-      @records = @records.includes(:tags, images_attachments: :blob).order(created_at: :desc)
+      @records = Record.search(child_ids: child_ids, tag_names: tag_names, content: content)
     end
   end
 

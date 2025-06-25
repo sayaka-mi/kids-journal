@@ -33,6 +33,20 @@ document.addEventListener('turbo:load', () => {
     });
   });
 
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ',' || e.key === ' ' || e.key === '　') {
+      e.preventDefault();
+      const inputValue = input.value.trim();
+      if (!inputValue) return;
+      const tags = inputValue.split(/[\s,]+/).filter(tag => tag.length > 0);
+      tags.forEach(tag => {
+        addTag(tag);
+      });
+      suggestions.innerHTML = '';
+      input.value = '';
+    }
+  });
+
   function addTag(name) {
     console.log('addTag called with:', name);
     if (selectedTagNames.has(name)) return;
@@ -69,11 +83,8 @@ document.addEventListener('turbo:load', () => {
   }
   clearBtn.addEventListener('click', () => {
     input.value = '';
-    // 直接innerHTMLクリア
     selectedTags.innerHTML = '';
-    // JSのセットもクリア
     selectedTagNames.clear();
-    // キーワード入力欄もクリア
     const contentInput = document.querySelector('input[name="content"]');
     if (contentInput) contentInput.value = '';
   });
