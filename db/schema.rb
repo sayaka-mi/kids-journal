@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_06_24_024657) do
+ActiveRecord::Schema[7.1].define(version: 2025_06_27_074016) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -88,10 +88,37 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_24_024657) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "vaccination_records", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "child_id", null: false
+    t.integer "vaccine_id"
+    t.string "other_vaccine_name"
+    t.string "hospital_name"
+    t.text "memo"
+    t.date "scheduled_date"
+    t.boolean "completed", default: false
+    t.date "vaccinated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["child_id"], name: "index_vaccination_records_on_child_id"
+  end
+
+  create_table "vaccines", charset: "utf8mb3", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "min_month"
+    t.integer "max_month"
+    t.boolean "optional"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "recommended_doses"
+    t.json "dose_months"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "children", "users"
   add_foreign_key "record_tags", "records"
   add_foreign_key "record_tags", "tags"
   add_foreign_key "records", "children"
+  add_foreign_key "vaccination_records", "children"
 end

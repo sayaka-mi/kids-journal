@@ -1,0 +1,42 @@
+<%= form_with model: [@current_child, @vaccination_record], local: true do |f| %>
+  <%= render "shared/error_messages", model: @vaccination_record %>
+
+  <div>
+    <%= f.label :vaccine_id, "ワクチン名（選択）" %><br>
+    <%= f.collection_select :vaccine_id, Vaccine.all, :id, :name, include_blank: "選択してください" %>
+  </div>
+
+  <div>
+    <%= f.label :other_vaccine_name, "その他ワクチン名" %><br>
+    <%= f.text_field :other_vaccine_name %>
+  </div>
+
+  <div>
+    <%= f.label :scheduled_date, "接種予定日" %><br>
+    <%= f.date_field :scheduled_date %>
+  </div>
+
+  <div>
+    <%= f.label :completed, "接種済みか" %><br>
+    <%= f.check_box :completed %>
+  </div>
+
+  <div>
+    <%= f.label :vaccinated_at, "接種日" %><br>
+    <%= f.date_field :vaccinated_at %>
+  </div>
+
+  <div>
+    <%= f.label :hospital_name, "病院名" %><br>
+    <%= f.text_field :hospital_name %>
+  </div>
+
+  <div>
+    <%= f.label :memo, "メモ" %><br>
+    <%= f.text_area :memo %>
+  </div>
+
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

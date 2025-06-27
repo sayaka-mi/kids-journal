@@ -1,0 +1,33 @@
+<h1><%= @current_child.name %>の予防接種記録一覧</h1>
+
+<%= link_to '新規登録', new_child_vaccination_record_path(@current_child), class: "btn btn-primary" %>
+
+<table>
+  <thead>
+    <tr>
+      <th>ワクチン名</th>
+      <th>予定日</th>
+      <th>接種済み</th>
+      <th>接種日</th>
+      <th>病院名</th>
+      <th>メモ</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @vaccination_records.each do |record| %>
+      <tr>
+        <td><%= record.vaccine_id.present? ? Vaccine.find(record.vaccine_id).name : record.other_vaccine_name %></td>
+        <td><%= record.scheduled_date %></td>
+        <td><%= record.completed ? "✔️" : "未" %></td>
+        <td><%= record.vaccinated_at %></td>
+        <td><%= record.hospital_name %></td>
+        <td><%= record.memo %></td>
+        <td>
+          <%= link_to '編集', edit_child_vaccination_record_path(@current_child, record), class: "btn btn-primary" %> |
+          <%= link_to '削除', child_vaccination_record_path(@current_child, record), data: { turbo_method: :delete, confirm: '削除しますか？' }, class: "btn btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

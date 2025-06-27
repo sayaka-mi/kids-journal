@@ -30,10 +30,12 @@
             <div class="tab-label">成長</div>
         </div>
         <div class="tab-item">
+          <%= link_to child_vaccination_records_path(current_child), class: "tab-link" do %>
             <div class="tab-icon">
               <img src="<%= asset_path('vaccine.png') %>" alt="予防接種" class="icon-image">
             </div>
             <div class="tab-label">予防接種</div>
+          <% end %>
         </div>
         <div class="tab-item">
             <div class="tab-icon">

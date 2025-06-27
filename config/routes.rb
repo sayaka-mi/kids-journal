@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :children do
     resources :records, only: [:new, :create, :index, :edit, :update, :destroy]
+    resources :vaccination_records, only: [:new, :create, :edit, :update, :destroy, :index]
   end
 
   resources :posts

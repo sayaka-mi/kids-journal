@@ -1,6 +1,7 @@
 class Child < ApplicationRecord
   belongs_to :user
   has_many :records, dependent: :destroy
+  has_many :vaccination_records, dependent: :destroy
 
   enum gender: { male: 0, female: 1 }
   enum blood_type: { A: 'A', B: 'B', O: 'O', AB: 'AB', unknown: 'unknown' }
