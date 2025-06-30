@@ -1,6 +1,6 @@
 class ChildrenController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_child, only: [:edit, :update, :destroy]
+  before_action :set_child, only: [:edit, :update, :destroy, :vaccination_schedule]
 
   def index
     @children = current_user.children
@@ -43,6 +43,22 @@ class ChildrenController < ApplicationController
     child = current_user.children.find(params[:child_id])
     session[:child_id] = child.id
     redirect_to root_path, notice: "#{child.name} を選択しました"
+  end
+
+  def vaccination_schedule
+    @vaccines = Vaccine.all
+    @vaccination_schedules = @vaccines.map do |vaccine|
+      next if vaccine.dose_month.blank?
+
+      schedule_dates = vaccine.dose_months.map do |month|
+        @child.birthday.advance(months: month)
+      end
+
+      {
+        vaccine: vaccine,
+        schedule_dates: schedule_dates
+      }
+    end.compact
   end
 
   private
