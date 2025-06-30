@@ -1,61 +1,35 @@
-<h1><%= @current_child.name %>の予防接種記録一覧</h1>
+<h1 class="vaccination-records__title"><%= @current_child.name %>の予防接種きろく</h1>
 
-<%= form_with url: create_or_update_child_vaccination_records_path(@current_child), method: :post, local: true do |form| %>
-  <table>
-    <thead>
-      <tr>
-        <th>ワクチン名</th>
-        <th>回数</th>
-        <th>接種日</th>
-        <th>適正時期（月齢）</th>
-        <th>状態</th>
-        <th>詳細</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @vaccines.each do |vaccine| %>
-        <% doses_for_vaccine = @vaccination_records.select { |r| r.vaccine_id == vaccine.id } %>
-        <% max_doses = [vaccine.recommended_doses, doses_for_vaccine.size].max %>
-        <% max_doses.times do |i| %>
-          <% record = doses_for_vaccine[i] || VaccinationRecord.new(vaccine: vaccine) %>
-          <tr>
-            <% if i == 0 %>
-              <td rowspan="<%= max_doses %>"><%= vaccine.name %></td>
+<%= form_with url: create_or_update_child_vaccination_records_path(@current_child), method: :post, local: true, class: "vaccination-records__form" do |form| %>
+  <% @vaccines.each do |vaccine| %>
+    <% doses_for_vaccine = @vaccination_records.select { |r| r.vaccine_id == vaccine.id } %>
+    <% max_doses = [vaccine.recommended_doses, doses_for_vaccine.size].max %>
+
+    <div class="vaccination-records__vaccine-card">
+      <div class="vaccination-records__vaccine-header">
+        <%= vaccine.name %>
+      </div>
+
+      <% max_doses.times do |i| %>
+        <div class="vaccination-records__dose-info">
+          <div class="vaccination-records__dose-left">
+            <%= "#{i + 1}回目" %>（<%= vaccine.dose_months&.[](i) || '任意時期' %>か月）
+          </div>
+
+          <div class="vaccination-records__dose-right">
+            <%= form.fields_for "records[]", doses_for_vaccine[i] || VaccinationRecord.new(vaccine: vaccine) do |rf| %>
+              <%= rf.date_field :vaccinated_at, value: doses_for_vaccine[i]&.vaccinated_at&.strftime('%Y-%m-%d'), class: "vaccination-records__input" %>
             <% end %>
-            <td><%= i + 1 %>回目</td>
-            <td>
-              <%= form.fields_for "records[]", record do |rf| %>
-                <%= rf.date_field :vaccinated_at, value: record.vaccinated_at&.strftime('%Y-%m-%d') %>
-                <%= rf.hidden_field :id, value: record.id if record.persisted? %>
-                <%= rf.hidden_field :vaccine_id, value: vaccine.id %>
-              <% end %>
-            </td>
-            <td>
-              <% recommended_month = vaccine.dose_months&.[](i) %>
-              <% if recommended_month.present? %>
-                <%= "#{recommended_month}か月" %>
-              <% else %>
-                任意時期
-              <% end %>
-            </td>
-            <td>
-              <% if record.persisted? && record.vaccinated_at.present? %>
-                <span style="color: green;">接種済み</span>
-              <% else %>
-                <span style="color: red;">未実施</span>
-              <% end %>
-            </td>
-            <td>
-              <div style="font-size: small;">
-                <%= form.text_field "records[][hospital_name]", value: record.hospital_name, placeholder: "病院名" %>
-                <%= form.text_field "records[][memo]", value: record.memo, placeholder: "メモ" %>
-              </div>
-            </td>
-          </tr>
-        <% end %>
-      <% end %>
-    </tbody>
-  </table>
+          </div>
+        </div>
 
-  <%= form.submit '保存' %>
+        <div class="vaccination-records__sub-info">
+          <%= form.text_field "records[][hospital_name]", value: doses_for_vaccine[i]&.hospital_name, placeholder: "病院名" %>
+          <%= form.text_field "records[][memo]", value: doses_for_vaccine[i]&.memo, placeholder: "メモ" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= form.submit '保存', class: "btn-primary" %>
 <% end %>

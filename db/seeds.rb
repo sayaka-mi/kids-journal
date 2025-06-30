@@ -106,22 +106,6 @@ vaccines = [
     min_month: 3, max_month: 108
   },
   {
-    name: "不活化インフルエンザ",
-    recommended_doses: 2,
-    dose_months: [],
-    min_month: 6, max_month: nil,
-    optional: true,
-    description: "13歳までは2回接種、以降は毎年1回接種"
-  },
-  {
-    name: "経鼻弱毒生インフルエンザ",
-    recommended_doses: 1,
-    dose_months: [],
-    min_month: 24, max_month: 228,
-    optional: true,
-    description: "経鼻タイプ、年1回接種"
-  },
-  {
     name: "ヒトパピローマウイルス（HPV）",
     recommended_doses: 3,
     dose_months: [144, 145, 150],
