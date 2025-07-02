@@ -37,6 +37,8 @@ ja:
       child: "お子さん"
       record: "記録"
       tag: "タグ"
+      vaccine: "ワクチン"
+      vaccine_record: "予防接種記録"
     attributes:
       user:
         name: "あなたのお名前"
@@ -65,6 +67,24 @@ ja:
         content: "内容"
       tag:
         name: "タグ名"
+      vaccine:
+        name: "ワクチン名"
+        recommended_dose: "推奨回数"
+        dose_months: "接種推奨月齢"
+        optional: "任意接種"
+        min_month: "接種開始月齢"
+        max_month: "接種終了月齢"
+        description: "説明"
+      vaccination_record:
+        child: "お子さん"
+        vaccine: "ワクチン"
+        vaccine_id: "ワクチン"
+        other_vaccine_name: "その他のワクチン名"
+        vaccinated_at: "接種日"
+        hospital_name: "病院名"
+        memo: "メモ"
+        scheduled_date: "接種予定日"
+        completed: "接種済み"
     errors:
       models:
         user:
@@ -107,7 +127,13 @@ ja:
             name:
               blank: "を入力してください"
           blank: "を入力してください"
-  search:
-    no_conditions: "検索条件を入力してください"
-    no_results: "該当する記録はありません。"
-    invalid_query: "検索条件が正しくありません。"
+        search:
+          no_conditions: "検索条件を入力してください"
+          no_results: "該当する記録はありません。"
+          invalid_query: "検索条件が正しくありません。"
+        vaccination_record:
+          attributes:
+            base:
+              vaccine_id_or_other_vaccine_name_present: "ワクチン名またはその他のワクチン名を入力してください"
+            vaccinated_at:
+              vaccinated_at_required_if_completed: "接種日を入力してください（接種済みの場合）"

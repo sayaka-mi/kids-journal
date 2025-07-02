@@ -9,8 +9,14 @@ class VaccinationRecord < ApplicationRecord
   scope :completed, -> {where(completed: true)}
   scope :scheduled, -> {where(completed: false)}
 
+  before_save :set_completed
+
   def vaccine_name
     vaccine&.name || other_vaccine_name
+  end
+
+  def set_completed
+    self.completed = vaccinated_at.present?
   end
 
   private

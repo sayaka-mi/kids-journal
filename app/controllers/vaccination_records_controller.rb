@@ -7,34 +7,27 @@ class VaccinationRecordsController < ApplicationController
   end
 
   def create_or_update
-    records = params[:records]
-    
-    if records.blank?
-      redirect_to child_vaccination_records_path(@current_child), alert: '記録がありません'
-      return
+     records_params = params.require(:"[vaccination_records]").permit!
+    processed_records_params = records_params.values.map do |record_param|
+      record_param[:vaccinated_at] = nil if record_param[:vaccinated_at].blank?
+      record_param.permit(:id, :vaccine_id, :vaccinated_at, :hospital_name, :memo, :completed)
     end
 
-    ActiveRecord::Base.transaction do
-      records.each do |_, record_params|
-        if record_params[:id].present?
-          vaccination_record = @current_child.vaccination_records.find(record_params[:id])
-          unless vaccination_record.update(record_params.permit(:vaccine_id, :other_vaccine_name, :hospital_name, :memo, :scheduled_date, :completed, :vaccinated_at))
-            raise ActiveRecord::Rollback, vaccination_record.errors.full_messages.join(', ')
-          end
-        else
-          new_record = @current_child.vaccination_records.new(record_params.permit(:vaccine_id, :other_vaccine_name, :hospital_name, :memo, :scheduled_date, :completed, :vaccinated_at))
-          unless new_record.save
-            raise ActiveRecord::Rollback, new_record.errors.full_messages.join(', ')
-          end
+    processed_records_params.each do |record_param|
+      if record_param[:id].present?
+        record = @current_child.vaccination_records.find_by(id: record_param[:id])
+        if record
+          record.update(record_param)
         end
+      else
+        @current_child.vaccination_records.create(record_param)
       end
     end
 
-    redirect_to child_vaccination_records_path(@current_child), notice: '予防接種記録を更新しました！'
-  rescue ActiveRecord::RecordInvalid => e
-    redirect_to child_vaccination_records_path(@current_child), alert: "バリデーションエラー: #{e.message}"
-  rescue => e
-    redirect_to child_vaccination_records_path(@current_child), alert: "エラーが発生しました: #{e.message}"
+    redirect_to child_vaccination_records_path(@current_child), notice: '予防接種記録を保存しました。'
+  rescue ActionController::ParameterMissing => e
+    flash[:alert] = "必要な情報が入力されていません。もう一度ご確認ください。"
+    redirect_to child_vaccination_records_path(@current_child)
   end
 
   def destroy

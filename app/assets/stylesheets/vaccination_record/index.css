@@ -1,9 +1,7 @@
 .vaccination-records__form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  margin: 0 auto;
+  gap: 12px;
 }
 
 .vaccination-records__vaccine-card {
@@ -21,7 +19,6 @@
   font-size: 1.0rem;
   font-weight: 700;
   color: #6e593f;
-  margin: 8px;
   text-align: center;
 }
 
@@ -29,10 +26,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fff;
+  background-color: #fefefe;;
   border: 1px solid #e0d9c9;
   border-radius: 6px;
-  padding: 6px 8px;
+  padding: 8px 10px;
   margin-top: 6px;
   font-size: 0.85rem;
   font-weight: bold;
@@ -40,12 +37,21 @@
 }
 
 .vaccination-records__dose-left {
-  flex: 1;
+  flex: 0 0 140px;
+  font-weight: bold;
 }
 
 .vaccination-records__dose-right {
-  flex: 1;
-  text-align: right;
+  flex: 0 1 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.vaccination-records__sub-inputs {
+  display: flex;
+  gap: 6px;
+  width: 100%;
 }
 
 .vaccination-records__sub-info {

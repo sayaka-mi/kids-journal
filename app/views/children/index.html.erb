@@ -1,30 +1,32 @@
-<div class="children-header">
-  <div class="children-header-content">
-    <h1>こども一覧</h1>
-    <%= link_to '＋', new_child_path, class: 'btn btn-add-child' %>
+<div class="body__container">
+  <div class="children-header">
+    <div class="children-header-content">
+      <h1>こども一覧</h1>
+      <%= link_to '＋', new_child_path, class: 'btn btn-add-child' %>
+    </div>
   </div>
-</div>
 
-<div class="children-container">
-  <div class="children-list">
-    <% @children.each do |child| %>
-    <div class="child-form">
-      <p><strong>名前:</strong> <%= child.name %>（<%= child.age_in_years_and_months %>）</p>
-        <p><strong>生年月日:</strong> <%= child.birthday %></p>
-        <p><strong>性別:</strong> <%= I18n.t("activerecord.attributes.child.genders.#{child.gender}") %></p>
-        <p><strong>アレルギー情報:</strong> <%= child.allergy_info.presence || 'なし' %></p>
-        <p><strong>血液型:</strong> <%= I18n.t("activerecord.attributes.child.blood_types.#{child.blood_type}") %></p>
-        <div class="form-actions">
-          <%= link_to '編集', edit_child_path(child), class: 'btn btn-secondary' %>
-          <%= link_to '削除', child_path(child), data: { turbo_method: :delete, confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+  <div class="children-container">
+    <div class="children-list">
+      <% @children.each do |child| %>
+      <div class="child-form">
+        <p><strong>名前:</strong> <%= child.name %>（<%= child.age_in_years_and_months %>）</p>
+          <p><strong>生年月日:</strong> <%= child.birthday %></p>
+          <p><strong>性別:</strong> <%= I18n.t("activerecord.attributes.child.genders.#{child.gender}") %></p>
+          <p><strong>アレルギー情報:</strong> <%= child.allergy_info.presence || 'なし' %></p>
+          <p><strong>血液型:</strong> <%= I18n.t("activerecord.attributes.child.blood_types.#{child.blood_type}") %></p>
+          <div class="form-actions">
+            <%= link_to '編集', edit_child_path(child), class: 'btn btn-secondary' %>
+            <%= link_to '削除', child_path(child), data: { turbo_method: :delete, confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
 
-          <% if child == current_child %>
-            <button class="btn btn-selected" disabled>選択中</button>
-          <% else %>
-            <%= button_to '選択する', select_child_path(child_id: child.id), method: :post, class: 'btn btn-primary' %>
-          <% end %>
+            <% if child == current_child %>
+              <button class="btn btn-selected" disabled>選択中</button>
+            <% else %>
+              <%= button_to '選択する', select_child_path(child_id: child.id), method: :post, class: 'btn btn-primary' %>
+            <% end %>
+          </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 </div>
