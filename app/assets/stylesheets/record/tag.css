@@ -43,16 +43,7 @@ label[for="tag-search"]  {
 }
 
 #tag-search {
-  width: 100%;
-  padding: 10px 12px;
   margin-bottom: 5px;
-  font-size: 0.95rem;
-  color: #5a4732;
-  background-color: #fffaf4;
-  border: 1px solid #c4b49b;
-  border-radius: 10px;
-  font-family: inherit;
-  transition: border-color 0.3s ease;
 }
 
 #tag-search:focus {
