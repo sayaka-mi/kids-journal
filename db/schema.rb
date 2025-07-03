@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_06_27_074016) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_03_041911) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -51,6 +51,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_27_074016) do
     t.index ["user_id"], name: "index_children_on_user_id"
   end
 
+  create_table "height_weights", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "child_id", null: false
+    t.date "recorded_on", null: false
+    t.float "height"
+    t.float "weight"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["child_id"], name: "index_height_weights_on_child_id"
+  end
+
   create_table "record_tags", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "record_id", null: false
     t.bigint "tag_id", null: false
@@ -78,12 +88,12 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_27_074016) do
   create_table "users", charset: "utf8mb3", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
+    t.string "name", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -108,15 +118,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_27_074016) do
     t.integer "min_month"
     t.integer "max_month"
     t.boolean "optional"
+    t.json "dose_months"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "recommended_doses"
-    t.json "dose_months"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "children", "users"
+  add_foreign_key "height_weights", "children"
   add_foreign_key "record_tags", "records"
   add_foreign_key "record_tags", "tags"
   add_foreign_key "records", "children"

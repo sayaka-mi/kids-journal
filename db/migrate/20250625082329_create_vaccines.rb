@@ -6,7 +6,7 @@ class CreateVaccines < ActiveRecord::Migration[7.1]
       t.integer :min_month
       t.integer :max_month
       t.boolean :optional
-      t.json :dose_months, default: []
+      t.json :dose_months
 
       t.timestamps
     end
