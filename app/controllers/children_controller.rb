@@ -1,5 +1,6 @@
 class ChildrenController < ApplicationController
   before_action :authenticate_user!
+  skip_before_action :redirect_to_child_registration_if_none, only: [:new, :create]
   before_action :set_child, only: [:edit, :update, :destroy, :vaccination_schedule]
 
   def index
@@ -13,6 +14,7 @@ class ChildrenController < ApplicationController
   def create
     @child = current_user.children.new(child_params)
     if @child.save
+      session[:child_id] = @child.id
       redirect_to children_path, notice: '登録しました！'
     else
       Rails.logger.debug "== errors: #{@child.errors.full_messages} =="

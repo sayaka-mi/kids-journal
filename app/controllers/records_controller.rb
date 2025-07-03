@@ -10,8 +10,8 @@ class RecordsController < ApplicationController
   def create
     @record = @child.records.new(record_params)
 
-    if params[:new_tags].present?
-      new_tag_ids = params[:new_tags].map do |tag_name|
+    if params[:tag_names].present?
+      new_tag_ids = params[:tag_names].map do |tag_name|
         Tag.find_or_create_by(name: tag_name.strip).id
       end
       @record.tag_ids += new_tag_ids
@@ -40,8 +40,8 @@ class RecordsController < ApplicationController
       end
     end
 
-    if params[:new_tags].present?
-      new_tag_ids = params[:new_tags].map do |tag_name|
+    if params[:tag_names].present?
+      new_tag_ids = params[:tag_names].map do |tag_name|
         Tag.find_or_create_by(name: tag_name.strip).id
       end
       existing_tag_ids = (record_params[:tag_ids] || []).reject(&:blank?).map(&:to_i)
