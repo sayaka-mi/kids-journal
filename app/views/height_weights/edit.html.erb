@@ -1,0 +1,11 @@
+<h1><%= @child.name %>の身長体重記録を編集</h1>
+
+<div>
+  <%= form_with(model: [@child, @height_weight], local: true) do |form| %>
+    <%= render 'form', form: form %> <%# _form.html.erb を読み込む %>
+  <% end %>
+
+  <div>
+    <%= link_to '詳細に戻る', child_height_weights_path(@child) %>
+  </div>
+</div>
