@@ -9,7 +9,11 @@ Rails.application.routes.draw do
         post :create_or_update
       end
     end
-    resources :height_weights, only: [:new, :create, :index]
+    resources :height_weights, only: [:new, :create, :index, :edit, :destroy] do
+      collection do
+        get :chart
+      end
+    end
   end
 
   resources :posts

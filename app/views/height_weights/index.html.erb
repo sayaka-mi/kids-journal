@@ -1,11 +1,15 @@
 <h1><%= @child.name %>の身長体重記録</h1>
 
 <div>
+  <%= link_to '追加', new_child_height_weight_path(@child), class: 'btn btn-secondary' %>
+</div>
+
+<div>
   <% if @height_weights.any? %>
     <table>
       <thead>
         <tr>
-          <th>記録日</th>
+          <th>測定日</th>
           <th>身長 (cm)</th>
           <th>体重 (kg)</th>
           <th>アクション</th>
@@ -14,13 +18,12 @@
       <tbody>
         <% @height_weights.each do |hw| %>
           <tr>
-            <td><%= l hw.recorded_on, format: :long %></td>
+            <td><%= hw.recorded_on.strftime("%Y年%m月%d日") %></td>
             <td><%= hw.height.present? ? "#{hw.height} cm" : "未入力" %></td>
             <td><%= hw.weight.present? ? "#{hw.weight} kg" : "未入力" %></td>
             <td>
-              <%= link_to '編集', edit_child_height_weight_path(@child, hw) %>
-              <%# 削除機能は後で実装 %>
-              <span>削除</span>
+              <%= link_to '編集', edit_child_height_weight_path(@child, hw), class: "btn btn-primary" %>
+              <%= link_to '削除', child_height_weight_path(@child, hw), data: {turbo_method: :delete}, class: 'btn btn-danger' %>
             </td>
           </tr>
         <% end %>
@@ -29,9 +32,4 @@
   <% else %>
     <p>まだ身長体重の記録がありません。</p>
   <% end %>
-
-  <div>
-    <%= link_to '新しい記録を追加', new_child_height_weight_path(@child) %>
-    <%= link_to 'お子様情報に戻る', child_path(@child) %>
-  </div>
 </div>

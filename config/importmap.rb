@@ -7,3 +7,5 @@ pin "@hotwired/stimulus-loading", to: "stimulus-loading.js"
 pin_all_from "app/javascript/controllers", under: "controllers"
 pin "preview", to: "preview.js"
 pin "tag_search", to: "tag_search.js"
+pin "chartkick", to: "chartkick.js", preload: true
+pin "Chart.bundle", to: "chartjs/dist/chart.umd.js", preload: true
