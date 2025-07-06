@@ -4,6 +4,8 @@
   <%= link_to '追加', new_child_height_weight_path(@child), class: 'btn btn-secondary' %>
 </div>
 
+<%= link_to 'グラフ', chart_child_height_weights_path(@child), class: 'btn btn-primary' %>
+
 <div>
   <% if @height_weights.any? %>
     <table>
@@ -12,7 +14,6 @@
           <th>測定日</th>
           <th>身長 (cm)</th>
           <th>体重 (kg)</th>
-          <th>アクション</th>
         </tr>
       </thead>
       <tbody>

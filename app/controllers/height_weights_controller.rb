@@ -40,6 +40,7 @@ class HeightWeightsController < ApplicationController
     @height_weights = @child.height_weights.order(:recorded_on)
   end
 
+
   private
 
   def set_child

@@ -84,5 +84,3 @@ gem "importmap-rails"
 gem 'pry-rails'
 
 gem 'chartkick'
-
-gem 'chartjs-ror'
