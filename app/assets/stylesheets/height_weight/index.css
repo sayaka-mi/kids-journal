@@ -1,0 +1,70 @@
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.records-table-container {
+  background-color: #ffffff;
+  border: 1px solid #d6c6b8;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(182, 150, 110, 0.15);
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.records-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.records-table th,
+.records-table td {
+  padding: 12px 16px;
+  text-align: center;
+  border-bottom: 1px solid #e8e1d8;
+}
+
+.records-table th {
+  background-color: #f8f6f1;
+  font-weight: 600;
+  color: #6e593f;
+  font-size: 0.95rem;
+}
+
+.records-table td {
+  color: #5a4732;
+  font-size: 0.9rem;
+}
+
+.records-table tbody tr:hover {
+  background-color: #fffaf4;
+}
+
+.records-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.table-actions .btn {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  min-width: 60px;
+}
+
+.no-records {
+  text-align: center;
+  padding: 40px 20px;
+  color: #8b7355;
+  font-size: 1.1rem;
+  background-color: #ffffff;
+  border: 1px solid #d6c6b8;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(182, 150, 110, 0.15);
+}

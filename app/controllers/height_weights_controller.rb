@@ -38,6 +38,8 @@ class HeightWeightsController < ApplicationController
 
   def chart
     @height_weights = @child.height_weights.order(:recorded_on)
+    @height_percentiles = HeightWeightStandardData.series_for(@child, 'height')
+    @weight_percentiles = HeightWeightStandardData.series_for(@child, 'weight')
   end
 
 

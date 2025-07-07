@@ -4,8 +4,4 @@
   <%= form_with(model: [@child, @height_weight], local: true) do |form| %>
     <%= render 'form', form: form %>
   <% end %>
-
-  <div>
-    <%= link_to '一覧に戻る', child_height_weights_path(@child) %>
-  </div>
 </div>

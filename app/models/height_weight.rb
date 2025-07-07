@@ -7,7 +7,13 @@ class HeightWeight < ApplicationRecord
   validates :height, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
   validates :weight, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
 
-  after_initialize :set_default_recorded_on, if: :new_record?
+  after_initialize do
+    set_default_recorded_on if new_record?
+  end
+
+  def age_in_months
+    child.age_in_months_at(recorded_on)
+  end
 
   private
 
