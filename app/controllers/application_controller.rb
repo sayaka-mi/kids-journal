@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_current_child
-  before_action :redirect_to_child_registration_if_none
+  before_action :redirect_to_child_registration_if_none, unless: :devise_controller?
 
   def after_sign_in_path_for(resource)
     if resource.children.exists?
@@ -24,17 +24,22 @@ class ApplicationController < ActionController::Base
 
   def set_current_child
     return unless user_signed_in?
-    @current_child = current_user.children.find_by(id: session[:child_id]) || current_user.children.first
+
+    if session[:child_id].present?
+      @current_child = current_user.children.find_by(id: session[:child_id])
+    end
+
+    @current_child ||= current_user.children.first
   end
 
   def redirect_to_child_registration_if_none
     return unless user_signed_in?
-    return if request.path == new_child_path
-    return if request.path.start_with?('/users/sign_out')
-    return if request.path.start_with?('/users')
+    return if controller_name == "children" && action_name == "new"
+    return if devise_controller?
+    return if request.path == destroy_user_session_path
 
-    if current_user.children.empty?
-      redirect_to new_child_path, alert: "お子さんの登録をしてね"
+    if @current_child.nil? && current_user.children.empty?
+      redirect_to new_child_path, alert: "お子様の情報を登録してください。"
       return
     end
   end

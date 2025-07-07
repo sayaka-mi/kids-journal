@@ -1,0 +1,81 @@
+.vaccination-records__form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.vaccination-records__vaccine-card {
+  width: 100%;
+  gap: 16px;
+  padding: 16px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0;
+  border: 1px solid #e0e0e0;
+}
+
+.vaccination-records__vaccine-header {
+  font-size: 1.0rem;
+  font-weight: 700;
+  color: #6e593f;
+  text-align: center;
+}
+
+.vaccination-records__dose-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fefefe;;
+  border: 1px solid #e0d9c9;
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-top: 6px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #5a4732;
+}
+
+.vaccination-records__dose-left {
+  flex: 0 0 140px;
+  font-weight: bold;
+}
+
+.vaccination-records__dose-right {
+  flex: 0 1 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.vaccination-records__sub-inputs {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+}
+
+.vaccination-records__sub-info {
+  margin-top: 4px;
+  font-size: 0.75rem;
+  color: #7a6a51;
+  display: flex;
+  gap: 8px;
+}
+
+.vaccination-records__sub-info input {
+  flex: 1;
+  font-size: 0.75rem;
+  color: #6e593f;
+  background-color: #f9f6f0;
+  border: 1px solid #e0d9c9;
+  border-radius: 4px;
+  padding: 4px 6px;
+}
+
+.vaccination-records__title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #6e593f;
+  text-align: center;
+  margin-bottom: 16px;
+}

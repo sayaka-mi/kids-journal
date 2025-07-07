@@ -1,0 +1,240 @@
+<div class="chart-container">
+  <h2><%= @child.name %>の成長グラフ</h2>
+
+  <% if @height_weights.any? %>
+  <%
+    all_months = @height_weights.map { |hw| hw.age_in_months }.uniq.sort
+
+    weight_data = all_months.map do |m|
+      hw = @height_weights.find { |h| h.age_in_months == m }
+      v  = hw&.weight&.to_f
+      [m, (v && v > 0 ? v : nil)]
+    end
+
+    height_data = all_months.map do |m|
+      hw = @height_weights.find { |h| h.age_in_months == m }
+      v  = hw&.height&.to_f
+      [m, (v && v > 0 ? v : nil)]
+    end
+
+    standard_months = all_months
+
+    weight_p3  = standard_months.map do |m|
+      data = HeightWeightStandardData.get_percentile_data(@child.gender, 'weight', m)
+      [m, data&.dig(:p3)]
+    end
+    
+    weight_p50 = standard_months.map do |m|
+      data = HeightWeightStandardData.get_percentile_data(@child.gender, 'weight', m)
+      [m, data&.dig(:p50)]
+    end
+    
+    weight_p97 = standard_months.map do |m|
+      data = HeightWeightStandardData.get_percentile_data(@child.gender, 'weight', m)
+      [m, data&.dig(:p97)]
+    end
+
+    height_p3  = standard_months.map do |m|
+      data = HeightWeightStandardData.get_percentile_data(@child.gender, 'height', m)
+      [m, data&.dig(:p3)]
+    end
+    
+    height_p50 = standard_months.map do |m|
+      data = HeightWeightStandardData.get_percentile_data(@child.gender, 'height', m)
+      [m, data&.dig(:p50)]
+    end
+    
+    height_p97 = standard_months.map do |m|
+      data = HeightWeightStandardData.get_percentile_data(@child.gender, 'height', m)
+      [m, data&.dig(:p97)]
+    end
+  %>
+
+  <div class="chart-heading">
+    <img src="<%= asset_path('weight.png') %>" alt="体重アイコン" class="chart-icon">
+    <span class="chart-label">体重</span>
+  </div>
+  <%= line_chart [
+  {
+    name: "",
+    data: weight_p3,
+    library: {
+      order: 100,
+      borderColor: "rgba(200, 200, 200, 0)",
+      backgroundColor: "rgba(220, 220, 220, 0.4)",
+      borderWidth: 0,
+      pointRadius: 0,
+      fill: "+1"
+    }
+  },
+  {
+    name: "",
+    data: weight_p97,
+    library: {
+      order: 100,
+      borderColor: "rgba(0, 0, 0, 0)",
+      backgroundColor: "rgba(0, 0, 0, 0)",
+      borderWidth: 1,
+      pointRadius: 0,
+      fill: false
+    }
+  },
+  {
+    name: "50パーセンタイル",
+    data: weight_p50,
+    library: {
+      order: 10,
+      borderColor: "rgba(160, 160, 160, 0.9)",
+      backgroundColor: "rgba(0, 0, 0, 0)",
+      borderWidth: 1,
+      pointRadius: 0,
+      fill: false,
+      borderDash: [5, 5]
+    }
+  },
+  {
+    name: "#{@child.name}の体重",
+    data: weight_data,
+    library: {
+      order: 1,
+      borderColor: "#f4a6a6",
+      backgroundColor: "#f4a6a6",
+      borderWidth: 2,
+      pointRadius: 4,
+      pointHoverRadius: 5,
+      pointBackgroundColor: "#f4a6a6",
+      pointBorderColor: "#f4a6a6",
+      pointHoverBackgroundColor: "#f4a6a6",
+      fill: false
+    }
+  }
+  ],
+  height: "350px",
+  library: {
+    responsive: true,
+    interaction: {
+      intersect: false,
+      mode: 'index'
+    },
+    scales: {
+      x: {
+        title: { display: true, text: "月齢" },
+        type: 'linear'
+      },
+      y: {
+        title: { display: true, text: "体重 (kg)" },
+        beginAtZero: false
+      }
+    },
+    plugins: {
+      legend: {
+        display: true,
+        position: 'top',
+        align: 'center',
+        labels: {
+          padding: 20,
+          usePointStyle: true,
+          pointStyle: 'line'
+        },
+        filter: "function(item, chart) { return item.text !== ''; }"
+      }
+    }
+  } %>
+  <div class="chart-heading">
+    <img src="<%= asset_path('tall.png') %>" alt="身長アイコン"  class="chart-icon">
+    <span class="chart-label">身長</span>
+  </div>
+  <%= line_chart [
+  {
+    name: "",
+    data: height_p3,
+    library: {
+      order: 100,
+      borderColor: "rgba(200, 200, 200, 0)",
+      backgroundColor: "rgba(220, 220, 220, 0.4)",
+      borderWidth: 0,
+      pointRadius: 0,
+      fill: "+1"
+    }
+  },
+  {
+    name: "",
+    data: height_p97,
+    library: {
+      order: 100,
+      borderColor: "rgba(0, 0, 0, 0)",
+      backgroundColor: "rgba(0, 0, 0, 0)",
+      borderWidth: 1,
+      pointRadius: 0,
+      fill: false
+    }
+  },
+  {
+    name: "50パーセンタイル",
+    data: height_p50,
+    library: {
+      order: 10,
+      borderColor: "rgba(160, 160, 160, 0.9)",
+      backgroundColor: "rgba(0, 0, 0, 0)",
+      borderWidth: 1,
+      pointRadius: 0,
+      fill: false,
+      borderDash: [5, 5]
+    }
+  },
+  {
+    name: "#{@child.name}の身長",
+    data: height_data,
+    library: {
+      order: 1,
+      borderColor: "#a8d5ba",
+      backgroundColor: "#a8d5ba",
+      borderWidth: 2,
+      pointRadius: 4,
+      pointHoverRadius: 5,
+      pointBackgroundColor: "#a8d5ba",
+      pointBorderColor: "#a8d5ba",
+      pointHoverBackgroundColor: "#a8d5ba",
+      fill: false
+    }
+  }
+  ],
+  height: "350px",
+  library: {
+    responsive: true,
+    interaction: {
+      intersect: false,
+      mode: 'index'
+    },
+    scales: {
+      x: {
+        title: { display: true, text: "月齢" },
+        type: 'linear'
+      },
+      y: {
+        title: { display: true, text: "身長 (cm)" },
+        beginAtZero: false
+      }
+    },
+    plugins: {
+      legend: {
+        display: true,
+        position: 'top',
+        align: 'center',
+        labels: {
+          padding: 20,
+          usePointStyle: true,
+          pointStyle: 'line'
+        },
+        filter: "function(item, chart) { return item.text !== ''; }"
+      }
+    }
+  } %>
+
+  <% else %>
+    <p>成長記録がまだありません。</p>
+  <% end %>
+  <div class="chart-footer">
+    <%= link_to "戻る", child_height_weights_path(@child), class: "btn btn-secondary" %>
+  </div>
+</div>

@@ -118,13 +118,6 @@ label.form-label {
   padding: 0;
 }
 
-.submit-container {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-top: 16px;
-}
-
 .image-previews {
   display: flex;
   flex-wrap: wrap;

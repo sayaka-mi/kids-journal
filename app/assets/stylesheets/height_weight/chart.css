@@ -1,0 +1,109 @@
+.chart-container {
+  background-color: #ffffff;
+  border: 1px solid #d6c6b8;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(182, 150, 110, 0.15);
+  margin: 0 auto 24px auto;
+}
+
+.chart-container h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #6e593f;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.chart-container canvas {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  background-color: #fffaf4;
+  border: 1px solid #e8e1d8;
+}
+
+.chart-container > div {
+  margin-bottom: 20px;
+}
+
+.chart-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.chart-container .chartjs-tooltip {
+  background-color: #ffffff;
+  border: 1px solid #d6c6b8;
+  border-radius: 8px;
+  color: #5a4732;
+  box-shadow: 0 2px 8px rgba(182, 150, 110, 0.2);
+}
+
+.chart-container .legend {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.chart-container .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #5a4732;
+  font-size: 0.9rem;
+}
+
+.chart-container .legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1px solid #d6c6b8;
+}
+
+.no-chart-data {
+  text-align: center;
+  padding: 40px 20px;
+  color: #8b7355;
+  font-size: 1.1rem;
+  background-color: #fffaf4;
+  border-radius: 8px;
+  border: 1px solid #e8e1d8;
+  margin-bottom: 20px;
+}
+
+.chart-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 20px 0 6px;
+}
+
+.chart-icon {
+  height: 40px;
+}
+
+.chart-label {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.chart-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.chart-container {
+  display: block;
+  margin: 30px auto 0 auto;
+  padding: 8px 20px;
+}
+
+.chart-container .chart-footer {
+  text-align: center;
+  margin-top: 24px;
+}

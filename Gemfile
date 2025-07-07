@@ -50,6 +50,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'shoulda-matchers'
+  gem 'rails-controller-testing'
 end
 
 group :development do
@@ -78,3 +80,7 @@ gem 'mini_magick'
 gem 'image_processing', '~> 1.2'
 
 gem "importmap-rails"
+
+gem 'pry-rails'
+
+gem 'chartkick'

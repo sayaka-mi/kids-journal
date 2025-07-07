@@ -1,0 +1,38 @@
+<h1 class="page-title"><%= @child.name %>の身長体重記録</h1>
+
+<div class="action-buttons">
+  <%= link_to '追加', new_child_height_weight_path(@child), class: 'btn btn-secondary' %>
+  <%= link_to 'グラフ', chart_child_height_weights_path(@child), class: 'btn btn-primary' %>
+</div>
+<div>
+  <% if @height_weights.any? %>
+    <div class="height-weight-container">
+      <table class="records-table">
+        <thead>
+          <tr>
+            <th>測定日</th>
+            <th>身長 (cm)</th>
+            <th>体重 (kg)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @height_weights.each do |hw| %>
+            <tr>
+              <td class="date-cell"><%= hw.recorded_on.strftime("%Y年%m月%d日") %></td>
+              <td><%= hw.height.present? ? "#{hw.height} cm" : "未入力" %></td>
+              <td><%= hw.weight.present? ? "#{hw.weight} kg" : "未入力" %></td>
+              <td>
+                <div class="table-actions">
+                  <%= link_to '編集', edit_child_height_weight_path(@child, hw), class: "btn btn-primary" %>
+                  <%= link_to '削除', child_height_weight_path(@child, hw), data: {turbo_method: :delete}, class: 'btn btn-danger' %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <p class="no-records">まだ身長体重の記録がありません。</p>
+  <% end %>
+</div>
