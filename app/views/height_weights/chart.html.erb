@@ -50,7 +50,10 @@
     end
   %>
 
-  <h3>体重</h3>
+  <div class="chart-heading">
+    <img src="<%= asset_path('weight.png') %>" alt="体重アイコン" class="chart-icon">
+    <span class="chart-label">体重</span>
+  </div>
   <%= line_chart [
   {
     name: "",
@@ -137,7 +140,10 @@
       }
     }
   } %>
-  <h3>身長</h3>
+  <div class="chart-heading">
+    <img src="<%= asset_path('tall.png') %>" alt="身長アイコン"  class="chart-icon">
+    <span class="chart-label">身長</span>
+  </div>
   <%= line_chart [
   {
     name: "",
@@ -228,6 +234,7 @@
   <% else %>
     <p>成長記録がまだありません。</p>
   <% end %>
-  
-  <%= link_to "戻る", child_height_weights_path(@child), class: "btn btn-secondary" %>
+  <div class="chart-footer">
+    <%= link_to "戻る", child_height_weights_path(@child), class: "btn btn-secondary" %>
+  </div>
 </div>

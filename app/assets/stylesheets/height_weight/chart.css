@@ -74,3 +74,36 @@
   border: 1px solid #e8e1d8;
   margin-bottom: 20px;
 }
+
+.chart-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 20px 0 6px;
+}
+
+.chart-icon {
+  height: 40px;
+}
+
+.chart-label {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.chart-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.chart-container {
+  display: block;
+  margin: 30px auto 0 auto;
+  padding: 8px 20px;
+}
+
+.chart-container .chart-footer {
+  text-align: center;
+  margin-top: 24px;
+}
