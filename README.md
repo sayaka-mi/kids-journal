@@ -80,8 +80,8 @@
 |-----------|--------|----------------------------|
 |id         |integer |null:false, primary_key:true|
 |child_id   |integer |null:false, foreign_key:true|
-|height     |float   |null:false                  |
-|weight     |float   |null:false                  |
+|height     |float   |                            |
+|weight     |float   |                            |
 |recorded_at|datetime|null:false                  |
 |created_at |datetime|null:false                  |
 |updated_at |datetime|null:false                  |
@@ -121,3 +121,4 @@
 ### Association
 - belongs_to :user
 - belongs_to :shared_user, class_name: 'User', foreign_key: 'shared_user_id'
+

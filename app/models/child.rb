@@ -39,7 +39,7 @@ class Child < ApplicationRecord
     if days < 0
       months -= 1
       prev_month = target_date.beginning_of_month - 1.day
-      days_in_prev_month = prev_month.day
+      days_in_prev_month = prev_month.end_of_month.day
       days += days_in_prev_month
     end
     

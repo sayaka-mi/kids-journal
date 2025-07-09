@@ -35,4 +35,7 @@
       </div>
     </div>
   <% end %>
+  <% if @records.empty? %>
+    <p>まだ記録がありません。</p>
+  <% end %>
 </div>

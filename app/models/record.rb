@@ -26,8 +26,9 @@ class Record < ApplicationRecord
   private
 
   def images_or_content_presence
-    return if content.present? || images.attached?
-    errors.add(:base, "どちらかを記録してみましょう！")
+    unless content.present? || images.attached?
+      errors.add(:base, "どちらかを記録してみましょう！")
+    end
   end
 
   def valid_image_types

@@ -18,7 +18,7 @@
           #<%= tag.name %>
           <button type="button" class="tag-remove-button">×</button>
         </span>
-        <input type="hidden" name="record[tag_ids][]" value="<%= tag.id %>">
+        <input type="hidden" name="tag_names[]" value="<%= tag.name %>">
       <% end %>
     </div>
   </div>
@@ -42,7 +42,9 @@
   
   <div class="submit-container">
     <%= link_to "戻る", child_records_path(@child), class: "btn btn-secondary" %>
-    <%= f.submit "投稿する", class: 'btn btn-primary'%>
+    <%= button_tag type: 'submit', class: 'btn btn-primary' do %>
+      投稿する
+    <% end %>
   </div>
 
 <% end %>

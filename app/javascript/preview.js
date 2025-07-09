@@ -23,7 +23,21 @@ document.addEventListener('turbo:load', () => {
     wrapper.appendChild(input);
     container.appendChild(wrapper);
 
-    input.addEventListener('change', updatePreviews);
+    input.addEventListener('change', () => {
+      let totalFilesCount = 0;
+      fileInputs.forEach(({input}) => {
+        totalFilesCount += input.files.length;
+      });
+
+      if (totalFilesCount > imageLimit) {
+        alert(`画像は最大${imageLimit}枚までです`);
+        input.value = '';
+        updatePreviews();
+        return;
+      }
+
+      updatePreviews();
+    });
 
     fileInputs.push({wrapper, input});
   }

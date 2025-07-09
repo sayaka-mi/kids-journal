@@ -4,7 +4,7 @@ class ChildrenController < ApplicationController
   before_action :set_child, only: [:edit, :update, :destroy, :vaccination_schedule]
 
   def index
-    @children = current_user.children
+    @children = all_children
   end
 
   def new
@@ -42,7 +42,7 @@ class ChildrenController < ApplicationController
   end
 
   def select_child
-    child = current_user.children.find(params[:child_id])
+    child = all_children.find{ |c| c.id == params[:child_id].to_i }
     session[:child_id] = child.id
     redirect_to root_path, notice: "#{child.name} を選択しました"
   end

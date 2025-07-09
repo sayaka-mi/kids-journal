@@ -7,9 +7,7 @@ class HeightWeight < ApplicationRecord
 
   validate :height_or_weight_presence
 
-  after_initialize do
-    set_default_recorded_on if new_record?
-  end
+  before_validation :set_default_recorded_on, on: :create
 
   def age_in_months
     child.age_in_months_at(recorded_on)

@@ -25,11 +25,13 @@ class ApplicationController < ActionController::Base
   def set_current_child
     return unless user_signed_in?
 
-    if session[:child_id].present?
-      @current_child = current_user.children.find_by(id: session[:child_id])
-    end
+    own_children = current_user.children
+    shared_from_users = SharedUser.where(shared_user_id: current_user.id).pluck(:user_id)
+    shared_children = Child.where(user_id: shared_from_users)
 
-    @current_child ||= current_user.children.first
+    all_children = own_children + shared_children
+    session[:child_id] ||= all_children.first&.id
+    @current_child = all_children.find { |c| c.id == session[:child_id] } || all_children.first
   end
 
   def redirect_to_child_registration_if_none
@@ -42,6 +44,17 @@ class ApplicationController < ActionController::Base
       redirect_to new_child_path, alert: "お子様の情報を登録してください。"
       return
     end
+  end
+
+  helper_method :all_children
+  def all_children
+    return [] unless user_signed_in?
+
+    own_children = current_user.children
+    shared_from_users = SharedUser.where(shared_user_id: current_user.id).pluck(:user_id)
+    shared_children = Child.where(user_id: shared_from_users)
+
+    own_children + shared_children
   end
 
   helper_method :current_child

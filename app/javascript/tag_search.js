@@ -1,8 +1,8 @@
 document.addEventListener('turbo:load', () => {
   const input = document.getElementById('tag-search');
-  if (!input) return;
   const suggestions = document.getElementById('tag-suggestions');
   const selectedTags = document.getElementById('selected-tags');
+  if (!input || !selectedTags) return;
 
   let selectedTagNames = new Set(
     Array.from(selectedTags.querySelectorAll('input[name="tag_names[]"]')).map(input => input.value)
@@ -48,25 +48,21 @@ document.addEventListener('turbo:load', () => {
   });
 
   function addTag(name) {
-    console.log('addTag called with:', name);
     if (selectedTagNames.has(name)) return;
     selectedTagNames.add(name);
 
     const span = document.createElement('span');
     span.classList.add('tag-item');
-    span.textContent = `#${name}`;
+
+    const text = document.createTextNode(`#${name}`);
+    span.appendChild(text);
 
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.classList.add('tag-remove-button');
     btn.textContent = '×';
-    btn.addEventListener('click', () => {
-      selectedTags.removeChild(span);
-      selectedTags.removeChild(hiddenInput);
-      selectedTagNames.delete(name);
-    });
-
     span.appendChild(btn);
+
     selectedTags.appendChild(span);
 
     const hiddenInput = document.createElement('input');
@@ -77,15 +73,34 @@ document.addEventListener('turbo:load', () => {
   }
 
   const clearBtn = document.getElementById('clear-search');
-  if (!clearBtn) {
-    console.error('clearBtn not found');
-    return;
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      input.value = '';
+      selectedTags.innerHTML = '';
+      selectedTagNames.clear();
+      const contentInput = document.querySelector('input[name="content"]');
+      if (contentInput) contentInput.value = '';
+    });
   }
-  clearBtn.addEventListener('click', () => {
-    input.value = '';
-    selectedTags.innerHTML = '';
-    selectedTagNames.clear();
-    const contentInput = document.querySelector('input[name="content"]');
-    if (contentInput) contentInput.value = '';
+
+  selectedTags.addEventListener('click', (e) => {
+    if (!e.target.classList.contains('tag-remove-button')) return;
+
+    const btn = e.target;
+    const span = btn.closest('.tag-item');
+    if (!span) return;
+
+    const tagNameWithHash = span.firstChild.textContent.trim();
+    const tagName = tagNameWithHash.replace(/^#/, '');
+
+    const hiddenInputs = selectedTags.querySelectorAll('input[name="tag_names[]"]');
+    hiddenInputs.forEach(input => {
+      if (input.value === tagName) {
+        input.remove();
+      }
+    });
+
+    span.remove();
+    selectedTagNames.delete(tagName);
   });
 });

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_03_041911) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_08_055217) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -78,6 +78,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_03_041911) do
     t.index ["child_id"], name: "index_records_on_child_id"
   end
 
+  create_table "shared_users", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "shared_user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shared_user_id"], name: "index_shared_users_on_shared_user_id"
+    t.index ["user_id", "shared_user_id"], name: "index_shared_users_on_user_id_and_shared_user_id", unique: true
+    t.index ["user_id"], name: "index_shared_users_on_user_id"
+  end
+
   create_table "tags", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -131,5 +141,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_03_041911) do
   add_foreign_key "record_tags", "records"
   add_foreign_key "record_tags", "tags"
   add_foreign_key "records", "children"
+  add_foreign_key "shared_users", "shared_users"
+  add_foreign_key "shared_users", "users"
   add_foreign_key "vaccination_records", "children"
 end

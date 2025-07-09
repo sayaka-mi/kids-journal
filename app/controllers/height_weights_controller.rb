@@ -46,7 +46,7 @@ class HeightWeightsController < ApplicationController
   private
 
   def set_child
-    @child = current_user.children.find(params[:child_id])
+    @child = all_children.find { |c| c.id == params[:child_id].to_i }
   end
 
   def height_weight_params

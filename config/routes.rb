@@ -26,4 +26,6 @@ Rails.application.routes.draw do
       get :search
     end
   end
+
+  resources :shared_users, only: [:index, :create, :destroy]
 end

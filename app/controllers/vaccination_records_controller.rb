@@ -1,5 +1,6 @@
 class VaccinationRecordsController < ApplicationController
   before_action :set_vaccination_record, only: [:destroy]
+  before_action :set_child
 
   def index
     @vaccines =Vaccine.all
@@ -42,5 +43,9 @@ class VaccinationRecordsController < ApplicationController
 
   def set_vaccination_record
     @vaccination_record = @current_child.vaccination_records.find(params[:id])
+  end
+
+  def set_child
+    @child = all_children.find { |c| c.id == params[:child_id].to_i }
   end
 end

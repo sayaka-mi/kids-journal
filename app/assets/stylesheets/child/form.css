@@ -108,17 +108,9 @@
   text-align: center;
 }
 
-.btn-primary {
-  background-color: #8b7355;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 20px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.btn-primary:hover {
-  background-color: #6e593f;
+.submit-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }

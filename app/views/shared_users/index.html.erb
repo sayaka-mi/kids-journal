@@ -1,0 +1,18 @@
+<h2>家族と共有</h2>
+
+<h3>現在共有中のユーザー</h3>
+<ul>
+  <% @shared_users.each do |shared| %>
+    <li>
+      <%= shared.shared_user.email %>
+      <%= button_to '解除', shared_user_path(shared), method: :delete, data: { confirm: "本当に解除しますか？" } %>
+    </li>
+  <% end %>
+</ul>
+
+<h3>新しく共有する</h3>
+<%= form_with url: shared_users_path, method: :post, local: true do |form| %>
+  <%= form.label :email, "共有する相手のメールアドレス" %>
+  <%= form.email_field :email, required: true %>
+  <%= form.submit "共有する" %>
+<% end %>

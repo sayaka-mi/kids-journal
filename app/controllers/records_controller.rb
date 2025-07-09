@@ -70,7 +70,7 @@ class RecordsController < ApplicationController
   def search
     tag_names = params[:tag_names]
     content = params[:content]
-    child_ids = current_user.children.pluck(:id)
+    child_ids = all_children.map(&:id)
 
     if tag_names.blank? && content.blank?
       @records = Record.none
@@ -81,7 +81,7 @@ class RecordsController < ApplicationController
 
   private
   def set_child
-    @child = current_user.children.find(params[:child_id])
+    @child = all_children.find { |c| c.id == params[:child_id].to_i }
   end
 
   def record_params
