@@ -2,6 +2,7 @@ class HeightWeightsController < ApplicationController
   before_action :set_child
   before_action :authenticate_user!
   before_action :set_height_weight, only: [:edit, :update, :destroy]
+  before_action :ensure_owner_user, only: [:new, :create, :edit, :update, :destroy]
 
   def new
     @height_weight = @child.height_weights.build
@@ -55,5 +56,11 @@ class HeightWeightsController < ApplicationController
 
   def set_height_weight
     @height_weight = @child.height_weights.find(params[:id])
+  end
+
+  def ensure_owner_user
+    unless owner_user?
+      redirect_to root_path, alert: "この操作はできません（閲覧専用です）"
+    end
   end
 end

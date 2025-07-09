@@ -2,6 +2,7 @@ class RecordsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_child, except: [:search]
   before_action :set_record, only: [:edit, :update, :destroy]
+  before_action :ensure_owner_user, only: [:new, :create, :edit, :update, :destroy]
 
   def new
     @record = @child.records.new
@@ -29,7 +30,6 @@ class RecordsController < ApplicationController
   end
 
   def edit
-    @record = @child.records.includes(:tags).find(params[:id])
   end
 
   def update
@@ -90,6 +90,12 @@ class RecordsController < ApplicationController
 
   def set_record
     @record = @child.records.find(params[:id])
+  end
+
+  def ensure_owner_user
+    unless owner_user?
+      redirect_to root_path, alert: "この操作はできません（閲覧専用です）"
+    end
   end
 
 end

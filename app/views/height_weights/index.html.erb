@@ -21,12 +21,14 @@
               <td class="date-cell"><%= hw.recorded_on.strftime("%Y年%m月%d日") %></td>
               <td><%= hw.height.present? ? "#{hw.height} cm" : "未入力" %></td>
               <td><%= hw.weight.present? ? "#{hw.weight} kg" : "未入力" %></td>
-              <td>
-                <div class="table-actions">
-                  <%= link_to '編集', edit_child_height_weight_path(@child, hw), class: "btn btn-primary" %>
-                  <%= link_to '削除', child_height_weight_path(@child, hw), data: {turbo_method: :delete}, class: 'btn btn-danger' %>
-                </div>
-              </td>
+              <% if owner_user? %>
+                <td>
+                  <div class="table-actions">
+                    <%= link_to '編集', edit_child_height_weight_path(@child, hw), class: "btn btn-primary" %>
+                    <%= link_to '削除', child_height_weight_path(@child, hw), data: { turbo_method: :delete }, class: 'btn btn-danger' %>
+                  </div>
+                </td>
+              <% end %>
             </tr>
           <% end %>
         </tbody>

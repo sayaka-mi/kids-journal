@@ -1,18 +1,44 @@
-<h2>家族と共有</h2>
+<h2 class="settings__title">設定</h2>
 
-<h3>現在共有中のユーザー</h3>
-<ul>
-  <% @shared_users.each do |shared| %>
-    <li>
-      <%= shared.shared_user.email %>
-      <%= button_to '解除', shared_user_path(shared), method: :delete, data: { confirm: "本当に解除しますか？" } %>
-    </li>
+<div class="settings__section">
+  <h3 class="settings__subtitle">登録情報変更</h3>
+  <%= render 'devise/registrations/edit_form', resource: current_user, resource_name: :user %>
+</div>
+
+<hr>
+
+<div class="settings__section">
+  <h3 class="settings__subtitle">家族と共有</h3>
+  <% if owner_user? %>
+    <div class="shared-family__subsection">
+      <h4>現在共有中のユーザー</h4>
+      <ul class="shared-family__list">
+        <% @shared_users.each do |shared| %>
+          <li class="shared-family__item">
+            <span><%= shared.shared_user.email %></span>
+            <%= button_to '解除', shared_user_path(shared), method: :delete, data: { confirm: "本当に解除しますか？" }, class: "btn btn-danger" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="shared-family__subsection">
+      <h4>新しく共有する</h4>
+      <%= form_with url: shared_users_path, method: :post, local: true, class: "shared-family__form" do |form| %>
+        <div class="shared-family__form-group">
+          <%= form.label :email, "共有する相手のメールアドレス" %>
+          <%= form.email_field :email, required: true, class: "shared-family__input" %>
+        </div>
+        <%= form.submit "共有する", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+
+  <% else %>
+    <% owner = @child.user %>
+    <% if owner.present? %>
+      <p class="shared-family__readonly-info">
+        この記録は <strong><%= owner.name || owner.email %></strong> さんから共有されています。
+      </p>
+    <% end %>
   <% end %>
-</ul>
-
-<h3>新しく共有する</h3>
-<%= form_with url: shared_users_path, method: :post, local: true do |form| %>
-  <%= form.label :email, "共有する相手のメールアドレス" %>
-  <%= form.email_field :email, required: true %>
-  <%= form.submit "共有する" %>
-<% end %>
+</div>

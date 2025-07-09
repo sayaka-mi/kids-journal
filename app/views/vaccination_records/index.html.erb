@@ -3,50 +3,94 @@
   <small class="child-current-age">(<%= @current_child.age_in_years_and_months %>)</small>
 </h1>
 
-<%= form_with url: create_or_update_child_vaccination_records_path(@current_child), method: :post, local: true, class: "vaccination-records__form" do |form| %>
-  <% form_index_counter = 0 %>
-  <% @vaccines.each do |vaccine| %>
-    <% doses_for_vaccine = @vaccination_records.select { |r| r.vaccine_id == vaccine.id } %>
-    <% max_doses = [vaccine.recommended_doses, doses_for_vaccine.size].max %>
+<% if owner_user? %>
+  <%= form_with url: create_or_update_child_vaccination_records_path(@child), method: :post, local: true, class: "vaccination-records__form" do |form| %>
+    <% form_index = 0 %>
+    <% @vaccines.each do |vaccine| %>
+      <% doses_for_vaccine = @vaccination_records.select { |r| r.vaccine_id == vaccine.id } %>
+      <% max_doses = [vaccine.recommended_doses, doses_for_vaccine.size].max %>
 
-    <div class="vaccination-records__vaccine-card">
-      <div class="vaccination-records__vaccine-header">
-        <%= vaccine.name %>
-      </div>
-
-      <% max_doses.times do |i| %>
-        <% record = doses_for_vaccine[i] || @current_child.vaccination_records.new(vaccine: vaccine) %>
-        <div class="vaccination-records__dose-info">
-          <div class="vaccination-records__dose-left">
-            <%= "#{i + 1}回目" %>（
-            <% dose_month = vaccine.dose_months&.[](i) %>
-            <% if dose_month.present? %>
-              <%= format_age_from_months(dose_month) %>
-            <% else %>
-              任意時期
-            <% end %>
-            )
-          </div>
-
-          <div class="vaccination-records__dose-right">
-            <%= form.fields_for :vaccination_records, record, index: form_index_counter do |rf| %>
-              <%= rf.hidden_field :id if record.persisted? %>
-              <%= rf.hidden_field :vaccine_id, value: vaccine.id %>
-              <%= rf.date_field :vaccinated_at, value: record.vaccinated_at&.strftime('%Y-%m-%d'), class: "vaccination-records__input vaccination-records__input--date" %>
-              <div class="vaccination-records__sub-inputs">
-                <%= rf.text_field :hospital_name, value: record.hospital_name, placeholder: "病院名", class: "vaccination-records__input" %>
-                <%= rf.text_field :memo, value: record.memo, placeholder: "メモ", class: "vaccination-records__input" %>
-              </div>
-              <%= rf.hidden_field :completed, value: record.vaccinated_at.present? ? 'true' : 'false' %>
-            <% end %>
-          </div>
+      <div class="vaccination-records__vaccine-card">
+        <div class="vaccination-records__vaccine-header">
+          <%= vaccine.name %>
         </div>
-          <% form_index_counter += 1 %>
-      <% end %>
+
+        <% max_doses.times do |i| %>
+          <% record = doses_for_vaccine[i] || @child.vaccination_records.new(vaccine: vaccine) %>
+
+          <div class="vaccination-records__dose-info">
+            <div class="vaccination-records__dose-left">
+              <%= "#{i + 1}回目" %>（
+              <% dose_month = vaccine.dose_months&.[](i) %>
+              <%= dose_month.present? ? format_age_from_months(dose_month) : '任意時期' %>
+              )
+            </div>
+
+            <div class="vaccination-records__dose-right">
+              <%= form.fields_for :vaccination_records, record, index: form_index do |rf| %>
+                <%= rf.hidden_field :id if record.persisted? %>
+                <%= rf.hidden_field :vaccine_id, value: vaccine.id %>
+
+                <div class="vaccination-records__field">
+                  <label>接種日</label>
+                  <%= rf.date_field :vaccinated_at, value: record.vaccinated_at&.strftime('%Y-%m-%d'), class: "vaccination-records__input" %>
+                </div>
+                <div class="vaccination-records__field">
+                  <label>病院名</label>
+                  <%= rf.text_field :hospital_name, value: record.hospital_name, placeholder: "病院名", class: "vaccination-records__input" %>
+                </div>
+                <div class="vaccination-records__field">
+                  <label>メモ</label>
+                  <%= rf.text_field :memo, value: record.memo, placeholder: "メモ", class: "vaccination-records__input" %>
+                </div>
+
+                <%= rf.hidden_field :completed, value: record.vaccinated_at.present? ? 'true' : 'false' %>
+              <% end %>
+            </div>
+          </div>
+
+          <% form_index += 1 %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= form.submit "保存", class: "btn btn-primary" %>
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= form.submit "保存", class: "btn btn-primary" %>
+<% else %>
+  <div class="vaccination-records__form">
+    <% @vaccines.each do |vaccine| %>
+      <% doses_for_vaccine = @vaccination_records.select { |r| r.vaccine_id == vaccine.id } %>
+      <% max_doses = [vaccine.recommended_doses, doses_for_vaccine.size].max %>
+
+      <div class="vaccination-records__vaccine-card">
+        <div class="vaccination-records__vaccine-header">
+          <%= vaccine.name %>
+        </div>
+
+        <% max_doses.times do |i| %>
+          <% record = doses_for_vaccine[i] %>
+          <div class="vaccination-records__dose-info">
+            <div class="vaccination-records__dose-left">
+              <%= "#{i + 1}回目" %>（
+              <% dose_month = vaccine.dose_months&.[](i) %>
+              <%= dose_month.present? ? format_age_from_months(dose_month) : '任意時期' %>
+              )
+            </div>
+
+            <div class="vaccination-records__dose-right">
+              <p class="vaccination-records__readonly" style="white-space: nowrap;">
+                接種日: <%= record&.vaccinated_at&.strftime('%Y-%m-%d') || '-' %>　
+                病院名: <%= record&.hospital_name.presence || '-' %>　
+                メモ: <%= record&.memo.presence || '-' %>　
+                完了: <%= record&.completed ? '〇' : '✖' %>
+              </p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 <% end %>

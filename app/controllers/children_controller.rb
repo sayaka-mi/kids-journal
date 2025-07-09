@@ -2,6 +2,7 @@ class ChildrenController < ApplicationController
   before_action :authenticate_user!
   skip_before_action :redirect_to_child_registration_if_none, only: [:new, :create]
   before_action :set_child, only: [:edit, :update, :destroy, :vaccination_schedule]
+  before_action :ensure_owner_user, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     @children = all_children
@@ -66,11 +67,17 @@ class ChildrenController < ApplicationController
   private
 
   def set_child
-    @child = current_user.children.find(params[:id])
+    @child = all_children.find { |c| c.id == params[:id].to_i }
   end
 
   def child_params
     params.require(:child).permit(:name, :birthday, :gender, :allergy_info, :blood_type)
+  end
+
+  def ensure_owner_user
+    unless owner_user?
+      redirect_to root_path, alert: "この操作はできません（閲覧専用です）"
+    end
   end
 
 end

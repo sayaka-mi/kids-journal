@@ -27,11 +27,15 @@
         </div>
       <% end %>
 
-      <p class="record-date">投稿日: <%= record.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+      <div class="record-footer">
+        <p class="record-date">投稿日: <%= record.created_at.strftime("%Y/%m/%d %H:%M") %></p>
 
-      <div class="record-actions">
-        <%= link_to "編集", edit_child_record_path(@child, record), class: "btn btn-primary" %>
-        <%= link_to "削除", child_record_path(@child, record), data: { turbo_method: :delete }, class: "btn btn-danger" %>
+        <% if owner_user? %>
+          <div class="record-actions">
+            <%= link_to "編集", edit_child_record_path(@child, record), class: "btn btn-primary" %>
+            <%= link_to "削除", child_record_path(@child, record), data: { turbo_method: :delete }, class: "btn btn-danger" %>
+          </div>
+        <% end %>
       </div>
     </div>
   <% end %>

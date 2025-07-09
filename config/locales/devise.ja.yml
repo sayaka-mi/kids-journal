@@ -112,6 +112,11 @@ ja:
       signed_in: "ログインしました。"
       signed_out: "ログアウトしました。"
       already_signed_out: "すでにログアウトしています。"
+      new:
+        forgot_your_password: "パスワードを忘れた場合"
+        sign_in: "ログインはこちら"
+        no_account: "アカウントをお持ちでない方"
+        already_have_account: "既にアカウントをお持ちの方"
     registrations:
       signed_up: "アカウント登録が完了しました。"
       signed_up_but_inactive: "アカウント登録は完了しましたが、有効化されていません。"
@@ -119,6 +124,8 @@ ja:
       updated: "アカウント情報を更新しました。"
       destroyed: "アカウントを削除しました。"
       update_needs_confirmation: "アカウント情報を更新しました。新しいメールアドレスを確認してください。"
+      new:
+        sign_up: "新規登録はこちら"
     passwords:
       send_instructions: "パスワード再設定の手順をメールで送信しました。"
       updated: "パスワードを変更しました。"

@@ -33,6 +33,14 @@
   margin-bottom: 8px;
 }
 
+.record-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+   padding: 8px 0;
+}
+
 .record-content p {
   font-size: 1rem;
   color: #6e593f;
