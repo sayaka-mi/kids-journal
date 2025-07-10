@@ -3,7 +3,9 @@
     <div class="children-header-content">
       <h1>こども一覧</h1>
       <% if owner_user? %>
-        <%= link_to '＋', new_child_path, class: 'btn btn-add-child' %>
+        <%= link_to new_child_path, class: 'btn-add-child' do %>
+          <%= image_tag 'add.png', alt: '追加', class: "icon-image" %>
+        <% end %>
       <% end %>
     </div>
   </div>

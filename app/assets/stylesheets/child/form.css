@@ -28,8 +28,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #f8f6f1;
-  color: #8b7355;
+  background-color: #fefdfc;
   font-size: 24px;
   font-weight: bold;
   text-decoration: none;
@@ -43,7 +42,7 @@
 }
 
 .btn-add-child:hover {
-  background-color: #f0ede8;
+  background-color: #d6d3cf;
 }
 
 .child-form-container {

@@ -38,6 +38,7 @@
 .vaccination-records__dose-left {
   flex: 0 0 140px;
   font-weight: bold;
+  margin-left: 16px;
 }
 
 .vaccination-records__dose-right {
