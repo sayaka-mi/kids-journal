@@ -1,15 +1,88 @@
-.shared-family__title {
-  font-size: 1.4rem;
-  margin-bottom: 1rem;
-  color: #5a462f;
+.settings__title {
+  font-size: 2rem;
+  margin-bottom: 3rem;
   text-align: center;
 }
 
-.shared-family__subtitle {
-  font-size: 1.1rem;
+.settings__section {
+  padding: 16px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+}
+
+.settings__subtitle {
+  font-size: 1.5rem;
+  padding-bottom: 8px;
+  margin-bottom: 0.8rem;
+  border-bottom: 1px solid #f0ece6;
+}
+
+.settings__subsection-title {
+  font-size: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.field {
+  margin-bottom: 1rem;
+}
+
+.field input[type="text"],
+.field input[type="email"],
+.field input[type="password"] {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc0aa;
+  border-radius: 6px;
+  box-sizing: border-box;
+  background-color: #fff;
+  color: #5a462f;
+}
+
+.field input[type="text"]:focus,
+.field input[type="email"]:focus,
+.field input[type="password"]:focus {
+  outline: none;
+  border-color: #c89b7b;
+  box-shadow: 0 0 0 2px rgba(200, 155, 123, 0.2);
+}
+
+.settings__section hr {
+  border: none;
+  border-top: 1px solid #e0d6c3;
+  margin: 1.5rem 0;
+}
+
+.settings__section p {
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.form-actions-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
   margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
+}
+
+.shared-family__subsection {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px dashed #e0d6c3;
+}
+
+.shared-family__subsection:first-of-type {
+    margin-top: 0.5rem;
+    padding-top: 0;
+    border-top: none;
+}
+
+.shared-family__subsection h4 {
+  font-size: 1rem;
   color: #6e593f;
+  margin-bottom: 0.8rem;
 }
 
 .shared-family__list {

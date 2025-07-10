@@ -2,50 +2,51 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   font-size: 0.9rem;
-  padding: 10px 20px;
-  min-width: 90px;
-  height: 40px;
+  padding: 14px;
+  height: auto;
   border-radius: 20px;
   text-decoration: none;
   color: #ffffff;
   cursor: pointer;
   white-space: nowrap;
   box-sizing: border-box;
-  border: 1px solid #5a462f;
+  border: none;
   background-color: #8b7355;
   transition: all 0.2s;
+  margin: 8px auto;
+  display: block;
 }
 
-a.btn,
-input.btn,
-button.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  padding: 10px 20px;
-  font-size: 0.9rem;
-  box-sizing: border-box;
-  min-width: 90px;
+.btn-fixed-width {
+  width: 100%;
+  max-width: 240px;
 }
 
-.btn-secondary,
-.btn-danger,
-.btn-selected {
-  color: #fff;
+.btn-full {
+  width: 100%;
+  max-width: 180px;
+}
+
+.btn-form {
+  width: 100%;
+  max-width: 180px;
 }
 
 .btn-primary {
-  background-color: #8b7355;
+  background: linear-gradient(135deg, #d4b896 0%, #c9a876 100%);
 }
 
 .btn-primary:hover {
-  background-color: #6e593f;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(196, 168, 118, 0.5);
+  background: linear-gradient(135deg, #c9a876 0%, #d4b896 100%);
 }
 
 .btn-secondary {
   background: #c89b7b;
+  color: #fff;
 }
 
 .btn-secondary:hover {
@@ -54,6 +55,7 @@ button.btn {
 
 .btn-danger {
   background: rgba(211, 125, 123, 0.55);
+  color: #fff;
 }
 
 .btn-danger:hover {
@@ -64,4 +66,5 @@ button.btn {
   background: #d84009b1;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   pointer-events: none;
+  color: #fff;
 }

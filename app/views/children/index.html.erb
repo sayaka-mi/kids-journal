@@ -17,14 +17,14 @@
           <p><strong>血液型:</strong> <%= I18n.t("activerecord.attributes.child.blood_types.#{child.blood_type}") %></p>
           <div class="form-actions">
             <% if owner_user? %>
-              <%= link_to '編集', edit_child_path(child), class: 'btn btn-secondary' %>
-              <%= link_to '削除', child_path(child), data: { turbo_method: :delete, confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+              <%= link_to '編集', edit_child_path(child), class: 'btn btn-secondary btn-full' %>
+              <%= link_to '削除', child_path(child), data: { turbo_method: :delete, confirm: '本当に削除しますか？' }, class: 'btn btn-danger btn-full' %>
             <% end %>
 
             <% if child == current_child %>
-              <button class="btn btn-selected" disabled>選択中</button>
+              <button class="btn btn-selected btn-full" disabled>選択中</button>
             <% else %>
-              <%= button_to '選択する', select_child_path(child_id: child.id), method: :post, class: 'btn btn-primary' %>
+              <%= button_to '選択する', select_child_path(child_id: child.id), method: :post, class: 'btn btn-primary btn-full', form: { class: 'btn-form' } %>
             <% end %>
           </div>
         </div>

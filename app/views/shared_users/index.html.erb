@@ -5,8 +5,6 @@
   <%= render 'devise/registrations/edit_form', resource: current_user, resource_name: :user %>
 </div>
 
-<hr>
-
 <div class="settings__section">
   <h3 class="settings__subtitle">家族と共有</h3>
   <% if owner_user? %>
@@ -16,7 +14,7 @@
         <% @shared_users.each do |shared| %>
           <li class="shared-family__item">
             <span><%= shared.shared_user.email %></span>
-            <%= button_to '解除', shared_user_path(shared), method: :delete, data: { confirm: "本当に解除しますか？" }, class: "btn btn-danger" %>
+            <%= button_to '解除', shared_user_path(shared), method: :delete, data: { confirm: "本当に解除しますか？" }, class: "btn btn-danger btn-full" %>
           </li>
         <% end %>
       </ul>
@@ -29,7 +27,7 @@
           <%= form.label :email, "共有する相手のメールアドレス" %>
           <%= form.email_field :email, required: true, class: "shared-family__input" %>
         </div>
-        <%= form.submit "共有する", class: "btn btn-primary" %>
+        <%= form.submit "共有する", class: "btn btn-primary btn-full" %>
       <% end %>
     </div>
 

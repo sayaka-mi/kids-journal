@@ -15,7 +15,7 @@
  *= require_self
  */
 
- .body__container {
+.body__container {
   width: 100%;
   max-width: 600px;
   margin: 0 auto;

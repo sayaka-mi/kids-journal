@@ -35,14 +35,14 @@
   </div>
 
   <div id="image_inputs_container" class="image-input-container">
-    <button type="button" id="add_image_input_button" class="btn btn-primary">画像を追加する</button>
+    <button type="button" id="add_image_input_button" class="btn btn-primary btn-full">画像を追加する</button>
   </div>
 
   <div id="previews" class="image-previews"></div>
   
   <div class="submit-container">
-    <%= link_to "戻る", child_records_path(@child), class: "btn btn-secondary" %>
-    <%= button_tag type: 'submit', class: 'btn btn-primary' do %>
+    <%= link_to "戻る", child_records_path(@child), class: "btn btn-secondary btn-full" %>
+    <%= button_tag type: 'submit', class: 'btn btn-primary btn-full' do %>
       投稿する
     <% end %>
   </div>

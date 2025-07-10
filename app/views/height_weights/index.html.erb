@@ -1,8 +1,8 @@
 <h1 class="page-title"><%= @child.name %>の身長体重記録</h1>
 
 <div class="action-buttons">
-  <%= link_to '追加', new_child_height_weight_path(@child), class: 'btn btn-secondary' %>
-  <%= link_to 'グラフ', chart_child_height_weights_path(@child), class: 'btn btn-primary' %>
+  <%= link_to '追加', new_child_height_weight_path(@child), class: 'btn btn-secondary btn-full' %>
+  <%= link_to 'グラフ', chart_child_height_weights_path(@child), class: 'btn btn-secondary btn-full' %>
 </div>
 <div>
   <% if @height_weights.any? %>
@@ -24,8 +24,8 @@
               <% if owner_user? %>
                 <td>
                   <div class="table-actions">
-                    <%= link_to '編集', edit_child_height_weight_path(@child, hw), class: "btn btn-primary" %>
-                    <%= link_to '削除', child_height_weight_path(@child, hw), data: { turbo_method: :delete }, class: 'btn btn-danger' %>
+                    <%= link_to '編集', edit_child_height_weight_path(@child, hw), class: "btn btn-primary btn-full" %>
+                    <%= link_to '削除', child_height_weight_path(@child, hw), data: { turbo_method: :delete }, class: 'btn btn-danger btn-full' %>
                   </div>
                 </td>
               <% end %>
