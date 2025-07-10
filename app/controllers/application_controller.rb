@@ -72,4 +72,9 @@ class ApplicationController < ActionController::Base
     user_signed_in? && current_child && current_user.children.exists?(id: current_child.id)
   end
 
+  helper_method :shared_user?
+  def shared_user?
+    user_signed_in? && current_child && !current_user.children.exists?(id: current_child.id)
+  end
+
 end

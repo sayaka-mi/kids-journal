@@ -2,7 +2,9 @@
   <div class="children-header">
     <div class="children-header-content">
       <h1>こども一覧</h1>
-      <%= link_to '＋', new_child_path, class: 'btn btn-add-child' %>
+      <% if owner_user? %>
+        <%= link_to '＋', new_child_path, class: 'btn btn-add-child' %>
+      <% end %>
     </div>
   </div>
 

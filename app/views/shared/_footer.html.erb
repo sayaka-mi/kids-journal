@@ -1,52 +1,54 @@
-<% if current_child.present? %>
+<% if owner_user? && controller_name != 'shared_users' %>
   <button class="fab">
     <%= link_to new_child_record_path(current_child), class: "fab-link" do %>
       <img src="<%= asset_path('pen.png') %>" alt="投稿" class="icon-image">
     <% end %>
   </button>
+<% end %>
 
+<% if current_child.present? || shared_user? %>
   <nav class="bottom-tabs">
     <div class="tab-container">
-        <div class="tab-item">
-          <%= link_to root_path, class: "tab-link" do %>
-            <div class="tab-icon">
-              <img src="<%= asset_path('home.png') %>" alt="ホーム" class="icon-image">
-            </div>
-            <div class="tab-label">ホーム</div>
-          <% end %>
-        </div>
-        <div class="tab-item">
-          <%= link_to child_records_path(current_child), class: "tab-link" do %>
-            <div class="tab-icon">
-              <img src="<%= asset_path('kiroku.png') %>" alt="記録" class="icon-image">
-            </div>
-            <div class="tab-label">記録</div>
-          <% end %>
-        </div>
-        <div class="tab-item">
-          <%= link_to child_height_weights_path(current_child), class: "tab-link" do %>
-            <div class="tab-icon">
-              <img src="<%= asset_path('graph.png') %>" alt="成長" class="icon-image">
-            </div>
-            <div class="tab-label">成長</div>
-          <% end %>
-        </div>
-        <div class="tab-item">
-          <%= link_to child_vaccination_records_path(current_child), class: "tab-link" do %>
-            <div class="tab-icon">
-              <img src="<%= asset_path('vaccine.png') %>" alt="予防接種" class="icon-image">
-            </div>
-            <div class="tab-label">予防接種</div>
-          <% end %>
-        </div>
-        <div class="tab-item">
-          <%= link_to shared_users_path, class: "tab-link" do %>
-            <div class="tab-icon">
-              <img src="<%= asset_path('setting.png') %>" alt="家族" class="icon-image">
-            </div>
-            <div class="tab-label">設定</div>
-          <% end %>
-        </div>
+      <div class="tab-item">
+        <%= link_to root_path, class: "tab-link" do %>
+          <div class="tab-icon">
+            <img src="<%= asset_path('home.png') %>" alt="ホーム" class="icon-image">
+          </div>
+          <div class="tab-label">ホーム</div>
+        <% end %>
+      </div>
+      <div class="tab-item">
+        <%= link_to child_records_path(current_child), class: "tab-link" do %>
+          <div class="tab-icon">
+            <img src="<%= asset_path('kiroku.png') %>" alt="記録" class="icon-image">
+          </div>
+          <div class="tab-label">記録</div>
+        <% end %>
+      </div>
+      <div class="tab-item">
+        <%= link_to child_height_weights_path(current_child), class: "tab-link" do %>
+          <div class="tab-icon">
+            <img src="<%= asset_path('graph.png') %>" alt="成長" class="icon-image">
+          </div>
+          <div class="tab-label">成長</div>
+        <% end %>
+      </div>
+      <div class="tab-item">
+        <%= link_to child_vaccination_records_path(current_child), class: "tab-link" do %>
+          <div class="tab-icon">
+            <img src="<%= asset_path('vaccine.png') %>" alt="予防接種" class="icon-image">
+          </div>
+          <div class="tab-label">予防接種</div>
+        <% end %>
+      </div>
+      <div class="tab-item">
+        <%= link_to shared_users_path, class: "tab-link" do %>
+          <div class="tab-icon">
+            <img src="<%= asset_path('setting.png') %>" alt="家族" class="icon-image">
+          </div>
+          <div class="tab-label">設定</div>
+        <% end %>
+      </div>
     </div>
   </nav>
 <% end %>

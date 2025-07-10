@@ -1,7 +1,9 @@
 <h1 class="page-title"><%= @child.name %>の身長体重記録</h1>
 
 <div class="action-buttons">
-  <%= link_to '追加', new_child_height_weight_path(@child), class: 'btn btn-secondary btn-full' %>
+  <% if owner_user? %>
+    <%= link_to '追加', new_child_height_weight_path(@child), class: 'btn btn-secondary btn-full' %>
+  <% end %>
   <%= link_to 'グラフ', chart_child_height_weights_path(@child), class: 'btn btn-secondary btn-full' %>
 </div>
 <div>
