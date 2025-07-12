@@ -20,8 +20,8 @@ class HeightWeight < ApplicationRecord
   end
 
   def height_or_weight_presence
-    if height.blank? && weight.blank?
-      errors.add(:base, "身長か体重のどちらかを入力してください")
-    end
+    return unless height.blank? && weight.blank?
+
+    errors.add(:base, '身長か体重のどちらかを入力してください')
   end
 end

@@ -43,7 +43,6 @@ class HeightWeightsController < ApplicationController
     @weight_percentiles = HeightWeightStandardData.series_for(@child, 'weight')
   end
 
-
   private
 
   def set_child
@@ -59,8 +58,8 @@ class HeightWeightsController < ApplicationController
   end
 
   def ensure_owner_user
-    unless owner_user?
-      redirect_to root_path, alert: "この操作はできません（閲覧専用です）"
-    end
+    return if owner_user?
+
+    redirect_to root_path, alert: 'この操作はできません（閲覧専用です）'
   end
 end

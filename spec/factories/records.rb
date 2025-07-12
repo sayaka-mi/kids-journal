@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :record do
-    content { "MyText" }
+    content { 'MyText' }
     association :child
   end
 end

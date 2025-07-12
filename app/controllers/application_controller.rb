@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def after_sign_out_path_for(resource)
+  def after_sign_out_path_for(_resource)
     root_path
   end
 
@@ -38,17 +38,17 @@ class ApplicationController < ActionController::Base
 
   def redirect_to_child_registration_if_none
     return unless user_signed_in?
-    return if controller_name == "children" && action_name == "new"
+    return if controller_name == 'children' && action_name == 'new'
     return if devise_controller?
     return if request.path == destroy_user_session_path
 
-    if current_user.children.empty?
-      is_shared_user = SharedUser.exists?(shared_user_id: current_user.id)
-      unless is_shared_user
-        redirect_to new_child_path, alert: "お子様の情報を登録してください。"
-        return
-      end
-    end
+    return unless current_user.children.empty?
+
+    is_shared_user = SharedUser.exists?(shared_user_id: current_user.id)
+    return if is_shared_user
+
+    redirect_to new_child_path, alert: 'お子様の情報を登録してください。'
+    nil
   end
 
   helper_method :all_children
@@ -63,9 +63,7 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :current_child
-  def current_child
-    @current_child
-  end
+  attr_reader :current_child
 
   helper_method :owner_user?
   def owner_user?
@@ -76,5 +74,4 @@ class ApplicationController < ActionController::Base
   def shared_user?
     user_signed_in? && current_child && !current_user.children.exists?(id: current_child.id)
   end
-
 end

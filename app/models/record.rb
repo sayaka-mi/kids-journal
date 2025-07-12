@@ -11,35 +11,30 @@ class Record < ApplicationRecord
 
   def self.search(child_ids:, tag_names:, content:)
     return none if tag_names.to_s.strip.blank? && content.to_s.strip.blank?
-    
+
     records = where(child_id: child_ids)
     if tag_names.present?
       tag_list = tag_names.split(/[\s,　]+/).map(&:strip)
       records = records.joins(:tags).where(tags: { name: tag_list }).distinct
     end
-    if content.present?
-      records = records.where("content LIKE ?", "%#{sanitize_sql_like(content)}%")
-    end
+    records = records.where('content LIKE ?', "%#{sanitize_sql_like(content)}%") if content.present?
     records.includes(:tags, images_attachments: :blob).order(created_at: :desc)
   end
 
   private
 
   def images_or_content_presence
-    unless content.present? || images.attached?
-      errors.add(:base, "どちらかを記録してみましょう！")
-    end
+    return if content.present? || images.attached?
+
+    errors.add(:base, 'どちらかを記録してみましょう！')
   end
 
   def valid_image_types
     return unless images.attached?
 
-    acceptable_types = ["image/jpeg", "image/png", "image/gif"]
+    acceptable_types = ['image/jpeg', 'image/png', 'image/gif']
     images.each do |image|
-      unless acceptable_types.include?(image.content_type)
-        errors.add(:images, "は対応している画像でアップロードしてください")
-      end
+      errors.add(:images, 'は対応している画像でアップロードしてください') unless acceptable_types.include?(image.content_type)
     end
   end
-  
 end

@@ -56,12 +56,13 @@ module HeightWeightStandardData
   }.freeze
 
   module_function
+
   def get_percentile_data(gender, measurement_type, age_in_months)
     data = case [gender, measurement_type]
-           when ['male',   'height'] then MALE_HEIGHT_PERCENTILES
-           when ['female', 'height'] then FEMALE_HEIGHT_PERCENTILES
-           when ['male',   'weight'] then MALE_WEIGHT_PERCENTILES
-           when ['female', 'weight'] then FEMALE_WEIGHT_PERCENTILES
+           when %w[male height] then MALE_HEIGHT_PERCENTILES
+           when %w[female height] then FEMALE_HEIGHT_PERCENTILES
+           when %w[male weight] then MALE_WEIGHT_PERCENTILES
+           when %w[female weight] then FEMALE_WEIGHT_PERCENTILES
            else return {}
            end
 
@@ -72,29 +73,29 @@ module HeightWeightStandardData
   def series_for(child, measurement_type, percentiles: %w[p3 p50 p97])
     gender = child.gender
     series = Hash.new { |h, k| h[k] = [] }
-    
+
     # 実際にデータが存在する月齢のみを使用
     available_months = case [gender, measurement_type]
-                      when ['male', 'height'] then MALE_HEIGHT_PERCENTILES.keys
-                      when ['female', 'height'] then FEMALE_HEIGHT_PERCENTILES.keys
-                      when ['male', 'weight'] then MALE_WEIGHT_PERCENTILES.keys
-                      when ['female', 'weight'] then FEMALE_WEIGHT_PERCENTILES.keys
-                      else []
-                      end
-    
-    max_age_months = ((Date.current.year - child.birthday.year) * 12 + 
+                       when %w[male height] then MALE_HEIGHT_PERCENTILES.keys
+                       when %w[female height] then FEMALE_HEIGHT_PERCENTILES.keys
+                       when %w[male weight] then MALE_WEIGHT_PERCENTILES.keys
+                       when %w[female weight] then FEMALE_WEIGHT_PERCENTILES.keys
+                       else []
+                       end
+
+    max_age_months = ((Date.current.year - child.birthday.year) * 12 +
                     (Date.current.month - child.birthday.month))
-    
+
     available_months.each do |age_mo|
       next if age_mo > max_age_months
-      
+
       pct = get_percentile_data(gender, measurement_type, age_mo)
       next if pct.empty?
-      
+
       plot_date = child.birthday + age_mo.months
       percentiles.each { |p| series[p] << [plot_date, pct[p.to_sym]] }
     end
-    
+
     series
   end
 end

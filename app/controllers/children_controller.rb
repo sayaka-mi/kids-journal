@@ -43,7 +43,7 @@ class ChildrenController < ApplicationController
   end
 
   def select_child
-    child = all_children.find{ |c| c.id == params[:child_id].to_i }
+    child = all_children.find { |c| c.id == params[:child_id].to_i }
     session[:child_id] = child.id
     redirect_to root_path, notice: "#{child.name} を選択しました"
   end
@@ -75,9 +75,8 @@ class ChildrenController < ApplicationController
   end
 
   def ensure_owner_user
-    unless owner_user?
-      redirect_to root_path, alert: "この操作はできません（閲覧専用です）"
-    end
-  end
+    return if owner_user?
 
+    redirect_to root_path, alert: 'この操作はできません（閲覧専用です）'
+  end
 end

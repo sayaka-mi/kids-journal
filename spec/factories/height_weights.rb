@@ -5,14 +5,14 @@ FactoryBot.define do
     height      { 90.0 }
     weight      { 13.4 }
 
-    trait :height_only  do
+    trait :height_only do
       weight { nil }
     end
 
-    trait :weight_only  do
+    trait :weight_only do
       height { nil }
     end
-    
+
     trait :blank do
       height { nil }
       weight { nil }

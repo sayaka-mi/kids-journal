@@ -1,13 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe VaccinationRecord, type: :model do
-
   let!(:child) { FactoryBot.create(:child) }
   let!(:vaccine) { FactoryBot.create(:vaccine) }
 
   describe 'associations' do
-    it {is_expected.to belong_to(:child)}
-    it {is_expected.to belong_to(:vaccine).optional}
+    it { is_expected.to belong_to(:child) }
+    it { is_expected.to belong_to(:vaccine).optional }
   end
 
   describe 'vaccinations' do
@@ -15,7 +14,7 @@ RSpec.describe VaccinationRecord, type: :model do
       it 'ワクチンIDとその他のワクチン名の両方が存在しない場合は無効' do
         record = build(:vaccination_record, child: child, vaccine: nil, vaccine_id: nil, other_vaccine_name: nil)
         expect(record).to be_invalid
-        expect(record.errors[:base]).to include("ワクチン名またはその他のワクチン名を入力してください")
+        expect(record.errors[:base]).to include('ワクチン名またはその他のワクチン名を入力してください')
       end
 
       it 'ワクチンIDが存在する場合は有効であること' do
@@ -33,7 +32,7 @@ RSpec.describe VaccinationRecord, type: :model do
       it 'completedがtrueでvaccinated_atが空の場合は無効であること' do
         record = build(:vaccination_record, child: child, vaccine: vaccine, completed: true, vaccinated_at: nil)
         expect(record).to be_invalid
-        expect(record.errors[:vaccinated_at]).to include("接種日を入力してください（接種済みの場合）")
+        expect(record.errors[:vaccinated_at]).to include('接種日を入力してください（接種済みの場合）')
       end
 
       it 'completedがtrueでvaccinated_atが存在する場合は有効であること' do
@@ -84,7 +83,9 @@ RSpec.describe VaccinationRecord, type: :model do
   end
 
   describe 'scopes' do
-    let!(:completed_record) { create(:vaccination_record, child: child, vaccine: vaccine, vaccinated_at: Date.today, completed: true) }
+    let!(:completed_record) do
+      create(:vaccination_record, child: child, vaccine: vaccine, vaccinated_at: Date.today, completed: true)
+    end
     let!(:scheduled_record) { create(:vaccination_record, child: child, vaccine: vaccine, vaccinated_at: nil, completed: false) }
 
     describe '.completed' do

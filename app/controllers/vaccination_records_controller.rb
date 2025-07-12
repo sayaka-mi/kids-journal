@@ -4,7 +4,7 @@ class VaccinationRecordsController < ApplicationController
   before_action :ensure_owner_user, only: [:create_or_update, :destroy]
 
   def index
-    @vaccines =Vaccine.all
+    @vaccines = Vaccine.all
     @vaccination_records = @child.vaccination_records.includes(:vaccine)
   end
 
@@ -19,17 +19,15 @@ class VaccinationRecordsController < ApplicationController
     processed_records_params.each do |record_param|
       if record_param[:id].present?
         record = @child.vaccination_records.find_by(id: record_param[:id])
-        if record
-          record.update(record_param)
-        end
+        record&.update(record_param)
       else
         @child.vaccination_records.create(record_param)
       end
     end
 
     redirect_to child_vaccination_records_path(@child), notice: '予防接種記録を保存しました。'
-  rescue ActionController::ParameterMissing => e
-    flash[:alert] = "必要な情報が入力されていません。もう一度ご確認ください。"
+  rescue ActionController::ParameterMissing
+    flash[:alert] = '必要な情報が入力されていません。もう一度ご確認ください。'
     redirect_to child_vaccination_records_path(@child)
   end
 
@@ -52,8 +50,8 @@ class VaccinationRecordsController < ApplicationController
   end
 
   def ensure_owner_user
-    unless owner_user?
-      redirect_to root_path, alert: "この操作はできません（閲覧専用です）"
-    end
+    return if owner_user?
+
+    redirect_to root_path, alert: 'この操作はできません（閲覧専用です）'
   end
 end

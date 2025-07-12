@@ -33,29 +33,11 @@ class RecordsController < ApplicationController
   end
 
   def update
-    if params[:record][:remove_attachments].present?
-      params[:record][:remove_attachments].each do |blob_id|
-        attachment = @record.images.find_by(blob_id: blob_id)
-      attachment.purge if attachment
-      end
-    end
-
-    if params[:tag_names].present?
-      new_tag_ids = params[:tag_names].map do |tag_name|
-        Tag.find_or_create_by(name: tag_name.strip).id
-      end
-      existing_tag_ids = (record_params[:tag_ids] || []).reject(&:blank?).map(&:to_i)
-      @record.tag_ids = existing_tag_ids + new_tag_ids
-    else
-      @record.tag_ids = (record_params[:tag_ids] || []).reject(&:blank?).map(&:to_i)
-    end
+    purge_removed_attachments if params[:record][:remove_attachments].present?
+    update_tags
 
     if @record.update(record_params.except(:attachments, :tag_ids))
-      if params[:record][:attachments].present?
-        params[:record][:attachments].each do |attachment|
-          @record.images.attach(attachment)
-        end
-      end
+      attach_new_images if params[:record][:attachments].present?
       redirect_to child_records_path(@child), notice: '更新しました！'
     else
       render :edit, status: :unprocessable_entity
@@ -64,7 +46,7 @@ class RecordsController < ApplicationController
 
   def destroy
     @record.destroy
-    redirect_to child_records_path(@child), notice: "削除しました"
+    redirect_to child_records_path(@child), notice: '削除しました'
   end
 
   def search
@@ -72,14 +54,15 @@ class RecordsController < ApplicationController
     content = params[:content]
     child_ids = all_children.map(&:id)
 
-    if tag_names.blank? && content.blank?
-      @records = Record.none
-    else
-      @records = Record.search(child_ids: child_ids, tag_names: tag_names, content: content)
-    end
+    @records = if tag_names.blank? && content.blank?
+                 Record.none
+               else
+                 Record.search(child_ids: child_ids, tag_names: tag_names, content: content)
+               end
   end
 
   private
+
   def set_child
     @child = all_children.find { |c| c.id == params[:child_id].to_i }
   end
@@ -93,9 +76,34 @@ class RecordsController < ApplicationController
   end
 
   def ensure_owner_user
-    unless owner_user?
-      redirect_to root_path, alert: "この操作はできません（閲覧専用です）"
+    return if owner_user?
+
+    redirect_to root_path, alert: 'この操作はできません（閲覧専用です）'
+  end
+
+  def purge_removed_attachments
+    params[:record][:remove_attachments].each do |blob_id|
+      attachment = @record.images.find_by(blob_id: blob_id)
+      attachment&.purge
     end
   end
 
+  def update_tags
+    tag_ids = (record_params[:tag_ids] || []).reject(&:blank?).map(&:to_i)
+
+    if params[:tag_names].present?
+      new_tag_ids = params[:tag_names].map do |tag_name|
+        Tag.find_or_create_by(name: tag_name.strip).id
+      end
+      tag_ids += new_tag_ids
+    end
+
+    @record.tag_ids = tag_ids
+  end
+
+  def attach_new_images
+    params[:record][:attachments].each do |attachment|
+      @record.images.attach(attachment)
+    end
+  end
 end

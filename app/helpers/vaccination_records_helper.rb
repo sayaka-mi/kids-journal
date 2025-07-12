@@ -5,7 +5,7 @@ module VaccinationRecordsHelper
     years = total_months / 12
     months = total_months % 12
 
-    if years > 0
+    if years.positive?
       "#{years}歳#{months}か月"
     else
       "#{months}か月"
