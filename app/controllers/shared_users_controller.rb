@@ -7,6 +7,8 @@ class SharedUsersController < ApplicationController
       owner = current_user.shared_from_users.first
       @child = owner.children.first if owner.present?
     end
+
+    @index ||= Child.new(user: current_user)
   end
 
   def create

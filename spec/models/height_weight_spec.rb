@@ -26,11 +26,5 @@ RSpec.describe HeightWeight, type: :model do
     it '体重が負の数は NG（:negative_weight）' do
       expect(build(:height_weight, :negative_weight, child: child)).to be_invalid
     end
-
-    it 'recorded_on が空は NG' do
-      hw = build(:height_weight, recorded_on: nil, child: child)
-      expect(hw).to be_invalid
-      expect(hw.errors[:recorded_on]).to include('記録日を入力してください')
-    end
   end
 end

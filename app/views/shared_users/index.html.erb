@@ -32,10 +32,13 @@
     </div>
 
   <% else %>
-    <% owner = @child.user %>
-    <% if owner.present? %>
+    <% if @child&.user.present? %>
       <p class="shared-family__readonly-info">
-        この記録は <strong><%= owner.name || owner.email %></strong> さんから共有されています。
+        この記録は <strong><%= @child.user.name.presence || @child.user.email %></strong> さんから共有されています。
+      </p>
+    <% else %>
+      <p class="shared-family__readonly-info">
+        共有元のユーザー情報がありません。
       </p>
     <% end %>
   <% end %>
