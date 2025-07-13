@@ -86,3 +86,7 @@ gem "importmap-rails"
 gem 'pry-rails'
 
 gem 'chartkick'
+
+group :production do
+  gem 'pg'
+end
