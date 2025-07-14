@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_current_child, unless: :skip_set_current_child?
   before_action :redirect_to_child_registration_if_none, unless: :devise_controller?
+  before_action :basic_auth
 
   def after_sign_in_path_for(resource)
     if resource.children.exists?
@@ -52,6 +53,12 @@ class ApplicationController < ActionController::Base
       devise_controller? ||
       (controller_name == 'children' && action_name == 'new') ||
       (current_user && current_user.children.empty? && !SharedUser.exists?(shared_user_id: current_user.id))
+  end
+
+  def basic_auth
+    authenticate_or_request_with_http_basic do |username, password|
+      username == 'admin' && password == '2222'
+    end
   end
 
   helper_method :all_children
