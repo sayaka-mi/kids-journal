@@ -11,6 +11,7 @@
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(182, 150, 110, 0.15);
   overflow: hidden;
+  overflow-x: auto;
   margin: 0 auto;
 }
 

@@ -56,6 +56,8 @@ label.form-label {
   position: relative;
   width: 33vh;
   height: 33vh;
+  max-width: 120px;
+  max-height: 120px;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(171, 142, 112, 0.25);
