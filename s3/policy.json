@@ -1,0 +1,18 @@
+{
+   "Version": "2012-10-17",
+   "Id": "Policy1544152951996",
+   "Statement": [
+       {
+           "Sid": "Stmt1544152948221",
+           "Effect": "Allow",
+           "Principal": {
+               "AWS": "arn:aws:iam::245991315220:user/sayaka"
+           },
+           "Action": "s3:*",
+           "Resource": [
+            "arn:aws:s3:::kids-journal-images",
+            "arn:aws:s3:::kids-journal-images/*"
+          ]
+       }
+   ]
+}

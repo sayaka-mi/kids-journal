@@ -90,3 +90,5 @@ gem 'chartkick'
 group :production do
   gem 'pg'
 end
+
+gem 'dotenv-rails', groups: [:development, :test]
