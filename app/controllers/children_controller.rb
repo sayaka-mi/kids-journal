@@ -2,7 +2,7 @@ class ChildrenController < ApplicationController
   before_action :authenticate_user!
   skip_before_action :redirect_to_child_registration_if_none, only: [:new, :create]
   before_action :set_child, only: [:edit, :update, :destroy, :vaccination_schedule]
-  before_action :ensure_owner_user, only: [:new, :create, :edit, :update, :destroy]
+  before_action :ensure_owner_user, only: [:edit, :update, :destroy]
 
   def index
     @children = all_children
