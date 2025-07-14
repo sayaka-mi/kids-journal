@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :set_current_child
+  before_action :set_current_child, , unless: :skip_set_current_child?
   before_action :redirect_to_child_registration_if_none, unless: :devise_controller?
 
   def after_sign_in_path_for(resource)
@@ -42,13 +42,16 @@ class ApplicationController < ActionController::Base
     return if devise_controller?
     return if request.path == destroy_user_session_path
 
-    return unless current_user.children.empty?
+    if current_user.children.empty? && !SharedUser.exists?(shared_user_id: current_user.id)
+      redirect_to new_child_path, alert: 'お子様の情報を登録してください。'
+    end
+  end
 
-    is_shared_user = SharedUser.exists?(shared_user_id: current_user.id)
-    return if is_shared_user
-
-    redirect_to new_child_path, alert: 'お子様の情報を登録してください。'
-    nil
+  def skip_set_current_child?
+    !user_signed_in? ||
+      devise_controller? ||
+      (controller_name == 'children' && action_name == 'new') ||
+      (current_user && current_user.children.empty? && !SharedUser.exists?(shared_user_id: current_user.id))
   end
 
   helper_method :all_children
