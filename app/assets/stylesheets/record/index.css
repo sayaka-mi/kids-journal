@@ -26,8 +26,14 @@
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
+.record-images {
+  width: 100%;
+  overflow: hidden;
+}
+
 .record-images img {
-  width: 90%;
+  width: 100%;
+  max-width: 100%;
   height: auto;
   border-radius: 8px;
   margin-bottom: 8px;
