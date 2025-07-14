@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :set_current_child, , unless: :skip_set_current_child?
+  before_action :set_current_child, unless: :skip_set_current_child?
   before_action :redirect_to_child_registration_if_none, unless: :devise_controller?
 
   def after_sign_in_path_for(resource)
