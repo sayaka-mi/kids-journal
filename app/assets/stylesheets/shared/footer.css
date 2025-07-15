@@ -1,7 +1,8 @@
 .fab {
   position: fixed;
   bottom: 100px;
-  right: 24px;
+  left: 50%;
+  transform: translateX(160px);
   width: 64px;
   height: 64px;
   border-radius: 32px;
@@ -15,15 +16,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 200;
 }
 
 .fab:hover {
-  transform: scale(1.1);
+  transform: translateX(160px) scale(1.1);
   box-shadow: 0 12px 35px rgba(196, 155, 97, 0.4);
 }
 
 .fab:active {
-  transform: scale(0.95); 
+  transform: translateX(160px) scale(0.95); 
 }
 
 .bottom-tabs {

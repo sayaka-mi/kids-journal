@@ -1,124 +1,161 @@
-# README
+# アプリケーション名
+kids-journal
 
-## users
+## アプリケーション概要
+このオリジナルアプリは、子育て中の親向けの子育て記録アプリです。
+- 子供の成長を、写真や文章で記録し、身長体重をグラフで残す
+- 親として必要な予防接種スケジュールを把握できる
 
-|Column            |Type    |Options                    |
-|------------------|--------|---------------------------|
-|id                |integer |null:false,primary_key:true|
-|email             |string  |null:false,unique:true     |
-|encrypted_password|string  |null:false                 |
-|name              |string  |null:false                 |
-|created_at        |datetime|null:false                 |
-|updated_at        |datetime|null:false                 |
+## URL
+https://kids-journal.onrender.com
 
-### Association
-- has_many :children
-- has_many :records, through: :children
-- has_many :shared_users, class_name: 'SharedUser', foreign_key: 'user_id'
+## テスト用アカウント
+* **テスト用アカウント**:
+    - 名前：`テスト`
+    - メールアドレス：`test@example.com`
+    - パスワード：`password123`
+* **Basic認証**:
+    - ID：`admin`
+    - パスワード：`2222`
 
-## children
-|Column      |Type    |Options                     |
-|------------|--------|----------------------------|
-|id          |integer |null:false, primary_key:true|
-|user_id     |integer |null:false, foreign_key:true|
-|name        |string  |null:false                  |
-|birthday    |date    |null:false                  |
-|gender      |integer |null:false                  |
-|allergy_info|text    |                            |
-|blood_type  |string  |                            |
-|created_at  |datetime|null:false                  |
-|updated_at  |datetime|null:false                  |
+## 利用方法
+### 1. 初回アクセス → ログイン画面へ自動遷移
+- ブラウザでアプリのURLにアクセスすると、**自動でログイン画面**にリダイレクトされます。
+[![Image from Gyazo](https://i.gyazo.com/afba335be3a7c43b4e74c2b438b75e2e.png)](https://gyazo.com/afba335be3a7c43b4e74c2b438b75e2e)
+### 2. 新規登録
+- ログイン画面の“ログイン”ボタンの下にある「アカウント作成」リンクをクリック
+- 名前／メールアドレス／パスワードを入力して「アカウント作成」をクリック
+[![Image from Gyazo](https://i.gyazo.com/db2cec251167cf9c1602f71521303c54.png)](https://gyazo.com/db2cec251167cf9c1602f71521303c54)
+### 3. ログイン
+- ログイン画面でメールアドレスとパスワードを入力し、「ログイン」をクリック
+- **子供が未登録の場合**：自動で「子供を追加」画面に遷移
+[![Image from Gyazo](https://i.gyazo.com/4aad301581b6e4f30699bf6d4db34e40.png)](https://gyazo.com/4aad301581b6e4f30699bf6d4db34e40)
+- **子供が既に登録済みの場合**：自動で「子供選択」画面に遷移
+### 4. 子供登録（子供未登録時）
+- 「子供を追加」画面で名前／生年月日／性別／アレルギー情報などを入力
+[![Image from Gyazo](https://i.gyazo.com/da82691638f15f6330d687b5f7492abd.png)](https://gyazo.com/da82691638f15f6330d687b5f7492abd)
+- 「保存」をクリック
+### 5. 子供選択（子供登録済み時）
+- 登録済みの子供リストから対象の子供をクリックして選択
+- 選択後、画面下部のフッターにある **「記録」「成長」「予防接種」** タブがすべて選択した子供の情報に切り替わります
+### 6. 投稿機能
+- 画面下部に固定されたフッターの **鉛筆アイコン（Fabボタン）** をタップ
+- 写真／文章／タグを入力
+- 「保存」をクリック
+### 7. 投稿検索機能
+- ヘッダーの虫眼鏡アイコンをクリック
+- タグまたはキーワードを入力し、検索ボタンをクリック
+### 8. 予防接種記録登録
+- 「予防接種」タブを選択
+- ワクチン一覧と推奨接種時期が表示される
+- 各行の「接種日」「病院名」「メモ」を入力し、「保存」をクリック
+### 9. 身長・体重登録・グラフ化
+- 「成長」タブを選択
+- 「データ追加」ボタンをクリック
+- 記録日／身長／体重を入力し、「保存」をクリック
+- 登録後、「身長・体重一覧」画面に戻り、一覧内の「グラフ表示」ボタンをクリックすると、折れ線グラフで可視化される
+### 10. 家族共有機能
+- 「設定」をクリック  
+- 共有したい家族のメールアドレスを入力して「共有する」をクリック  
+- 招待されたアカウントは閲覧のみアクセス可能
 
-### Association
-- belongs_to :user
-- has_many :records
-- has_many :vaccination_records
-- has_many :height_weights
+## アプリケーションを作成した背景
+- 子供の成長は記録しておかないと忘れてしまう  
+- 写真がスマホ内で埋もれがち  
+- 身長体重や次の予防接種時期をすぐに答えられない  
+- 乳児期以降に絞ったシンプルな記録アプリが欲しかった  
+- 複数アプリで分散管理するのは面倒なので、子供に特化した一つの場所で完結したい
 
-## records
-|Column    |Type    |Options                     |
-|----------|--------|----------------------------|
-|id        |integer |null:false, primary_key:true|
-|child_id  |integer |null:false, foreign_key:true|
-|content   |text    |                            |
-|image     |string  |ActiveStorage使用           |
-|created_at|datetime|null:false                  |
-|updated_at|datetime|null:false                  |
+## 実装した機能についての画像やGIFおよびその説明
+### 1. 記録投稿機能
+- 写真アップロード＋テキスト入力で成長記録を投稿 
+- Gyazo画像: ``
 
-### Association
-- belongs_to :child
-- has_many :record_tags
-- has_many :tags, through: :record_tags
+### 2. 身長体重グラフ
+- 記録データを折れ線グラフで表示  
+- GyazoGIF: ``
 
-## tags
-|Column    |Type    |Options                     |
-|----------|--------|----------------------------|
-|id        |integer |null:false, primary_key:true|
-|name      |string  |null:false, unique:true     |
-|created_at|datetime|null:false                  |
-|updated_at|datetime|null:false                  |
+### 3. 予防接種スケジュール
+- 接種履歴の一覧
+- Gyazo画像: ``
 
-### Association
-- has_many :record_tags
-- has_many :records, through: :record_tags
+## 実装予定の機能
+- 予防接種時期通知機能（メール／プッシュ通知）
 
-## record_tags
-|Column    |Type    |Options                     |
-|----------|--------|----------------------------|
-|id        |integer |null:false, primary_key:true|
-|record_id |integer |null:false, foreign_key:true|
-|tag_id    |integer |null:false, foreign_key:true|
-|created_at|datetime|null:false                  |
-|updated_at|datetime|null:false                  |
+## データベース設計
+![ER図](https://i.gyazo.com/c74545ef99bfe7f5495b755dba993bd4.png)
 
-### Association
-- belongs_to :record
-- belongs_to :tag
+## 画面遷移図
+![画面遷移図]()
 
-## height_weights
-|Column     |Type    |Options                     |
-|-----------|--------|----------------------------|
-|id         |integer |null:false, primary_key:true|
-|child_id   |integer |null:false, foreign_key:true|
-|height     |float   |                            |
-|weight     |float   |                            |
-|recorded_at|datetime|null:false                  |
-|created_at |datetime|null:false                  |
-|updated_at |datetime|null:false                  |
+## 開発環境
+使用した言語・サービスを記載してください。
 
-### Association
-- belongs_to :child
+* **言語**: Ruby 3.1.2, JavaScript
+* **フレームワーク**: Ruby on Rails 7.0.4, React (フロントエンドの一部に導入)
+* **データベース**: PostgreSQL 14
+* **OS**: macOS Ventura 13.5
+* **その他サービス**: AWS S3 (画像保存), Heroku (デプロイ)
 
-## vaccination_records
-|Column            |Type    |Options                     |
-|------------------|--------|----------------------------|
-|id                |integer |null:false, primary_key:true|
-|child_id          |integer |null:false, foreign_key:true|
-|vaccine_id        |integer |null:false, ActiveHash使用  |
-|other_vaccine_name|string  |                            |
-|hospital_name     |string  |                            |
-|memo              |text    |                            |
-|scheduled_date    |date    |null:false                  |
-|completed         |boolean |null:false, default:false   |
-|vaccinated_at     |date    |                            |
-|created_at        |datetime|null:false                  |
-|updated_at        |datetime|null:false                  |
+---
 
+## ローカルでの動作方法
+`git clone` してから、ローカルで動作をさせるまでに必要なコマンドを記載してください。
 
-### Association
-- belongs_to :child
+1.  リポジトリをクローンします。
+    ```bash
+    git clone [https://github.com/your_username/share_recipe.git](https://github.com/your_username/share_recipe.git)
+    ```
+2.  プロジェクトディレクトリに移動します。
+    ```bash
+    cd share_recipe
+    ```
+3.  必要なGemをインストールします。
+    ```bash
+    bundle install
+    ```
+4.  JavaScriptの依存関係をインストールします。
+    ```bash
+    yarn install
+    ```
+5.  データベースを作成し、マイグレーションを実行します。
+    ```bash
+    rails db:create db:migrate
+    ```
+6.  （必要であれば）テストデータを投入します。
+    ```bash
+    rails db:seed
+    ```
+7.  アプリケーションを起動します。
+    ```bash
+    rails s
+    ```
+    ブラウザで `http://localhost:3000` にアクセスしてください。
 
-## shared_users
-|Column        |Type    |Options                     |
-|--------------|--------|----------------------------|
-|id            |integer |null:false, primary_key:true|
-|user_id       |integer |null:false, foreign_key:true|
-|shared_user_id|integer |null:false, foreign_key:true|
-|created_at    |datetime|null:false                  |
-|updated_at    |datetime|null:false                  |
+---
 
+## 工夫したポイント
+制作背景・使用技術・開発方法・タスク管理など、企業へPRしたい事柄を記載してください。
+（例：
+* **技術選定**: パフォーマンスを考慮し、画像アップロードにAWS S3を導入しました。非同期処理にはAjaxを活用し、ユーザー体験の向上を図りました。
+* **開発プロセス**: アジャイル開発手法を取り入れ、短いスプリントで機能開発とテストを繰り返しました。Trelloを用いたタスク管理で、チーム内の進捗状況を可視化し、効率的な開発を実現しました。
+* **デザイン**: UI/UXを重視し、Figmaでプロトタイプを作成してから実装に進みました。特に、レシピ投稿フォームはユーザーが迷わず入力できるよう、シンプルかつ直感的なデザインを心がけました。
+* **セキュリティ**: ユーザーのパスワードはハッシュ化して保存し、SQLインジェクションやXSS（クロスサイトスクリプティング）対策も講じました。
+）
 
-### Association
-- belongs_to :user
-- belongs_to :shared_user, class_name: 'User', foreign_key: 'shared_user_id'
+---
 
+## 改善点
+より改善するとしたらどこか、それはどのようにしてやるのかを記載してください。
+（例：
+* **パフォーマンスの改善**: 現在、一部の検索処理においてレスポンスが遅いと感じる場面があります。今後、N+1問題の解消やインデックスの最適化、場合によってはキャッシュの導入を検討し、パフォーマンス向上を図りたいです。
+* **機能の拡充**: ユーザーからのフィードバックに基づき、お気に入り登録機能のフォルダ分けや、特定のユーザーをブロックする機能などを追加することで、よりパーソナライズされた体験を提供したいと考えています。
+* **テストカバレッジの向上**: 現在、主要な機能についてはテストを記述していますが、より網羅的なテストを行うために、RSpecやCapybaraを使ったテストカバレッジの向上を目指します。
+）
+
+---
+
+## 制作時間
+アプリケーションを制作するのにかけた時間を記載してください。
+
+* **合計時間**: 約200時間（企画・設計50時間、開発120時間、テスト・デプロイ30時間）
