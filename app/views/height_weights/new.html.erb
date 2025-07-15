@@ -1,7 +1,7 @@
 <h1><%= @child.name %>の身長体重記録を追加</h1>
 
 <div>
-  <%= form_with(model: [@child, @height_weight], local: true) do |form| %>
+  <%= form_with(model: [@child, @height_weight]) do |form| %>
     <%= render 'form', form: form %>
   <% end %>
 </div>
