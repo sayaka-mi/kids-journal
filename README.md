@@ -31,6 +31,7 @@ https://kids-journal.onrender.com
 - **子供が未登録の場合**：自動で「子供を追加」画面に遷移
 [![Image from Gyazo](https://i.gyazo.com/4aad301581b6e4f30699bf6d4db34e40.png)](https://gyazo.com/4aad301581b6e4f30699bf6d4db34e40)
 - **子供が既に登録済みの場合**：自動で「子供選択」画面に遷移
+[![Image from Gyazo](https://i.gyazo.com/65da361c19f2bdb8eaf54b2124b4d8ba.png)](https://gyazo.com/65da361c19f2bdb8eaf54b2124b4d8ba)
 ### 4. 子供登録（子供未登録時）
 - 「子供を追加」画面で名前／生年月日／性別／アレルギー情報などを入力
 [![Image from Gyazo](https://i.gyazo.com/da82691638f15f6330d687b5f7492abd.png)](https://gyazo.com/da82691638f15f6330d687b5f7492abd)

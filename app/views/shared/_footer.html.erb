@@ -1,4 +1,7 @@
-<% if owner_user? && controller_name != 'shared_users' %>
+<% show_fab =
+     (controller_name == 'children' && action_name == 'index') ||
+     (controller_name == 'records' && action_name == 'index') %>
+<% if owner_user? && controller_name != 'shared_users' && show_fab %>
   <button class="fab">
     <%= link_to new_child_record_path(current_child), class: "fab-link" do %>
       <img src="<%= asset_path('pen.png') %>" alt="投稿" class="icon-image">
