@@ -97,10 +97,10 @@ https://kids-journal.onrender.com
 - 予防接種時期通知機能（メール／プッシュ通知）
 
 ## データベース設計
-![ER図](drawio.png)
+[![Image from Gyazo](https://i.gyazo.com/1b47fb78b447b80be3e600e11aff5412.png)](https://gyazo.com/1b47fb78b447b80be3e600e11aff5412)
 
 ## 画面遷移図
-![画面遷移図](screen_transition.png)
+[![Image from Gyazo](https://i.gyazo.com/aa919b26dcebb45e1401a7f7fa34e40b.png)](https://gyazo.com/aa919b26dcebb45e1401a7f7fa34e40b)
 
 ## 開発環境
 * **Rubyバージョン**: 3.2.0
